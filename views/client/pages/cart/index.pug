@@ -1,0 +1,70 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/box-head.pug
+
+block main
+   .container.my-3
+      .row
+         .col-12
+            +box-head("Giỏ hàng")
+
+      .row
+         .col-12
+            - if(cartDetail.products.length > 0)
+               table(class="table table-bordered" table-cart)
+                  thead
+                     tr
+                        th STT
+                        th Ảnh
+                        th Tên
+                        th Giá
+                        th Số lượng
+                        th Tổng tiền
+                        th Hành động
+
+                  tbody
+                        each aProduct, index in cartDetail.products
+                           tr
+                              td #{index + 1}
+                              td
+                                 img(
+                                    src=aProduct.productInfo.images[0]
+                                    alt=aProduct.productInfo.title
+                                    width="80px"
+                                 )
+
+                              td
+                                 a(
+                                    href=`/products/detail/${aProduct.productInfo.slug}`
+                                 ) #{aProduct.productInfo.title}
+
+                              td #{aProduct.productInfo.priceNew}$
+                              
+                              td
+                                 input(
+                                    type="number"
+                                    name="quantity"
+                                    value=aProduct.quantity
+                                    min="1"
+                                    max=aProduct.productInfo.stock
+                                    product-id=aProduct.productId
+                                    style="width: 60px"
+                                 )
+
+                              td #{aProduct.totalPrice}$
+                              
+                              td
+                                 a(
+                                    href=`/cart/delete/${aProduct.productId}`
+                                    class="btn btn-danger"
+                                 ) Xóa
+
+               h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+
+               div(class="text-right mt-3")
+                  a(href="/checkout" class="btn btn-success") TIẾN HÀNH ĐẶT HÀNG
+                  
+            - else
+               tr
+                  td(colspan="7" class="text-center") Chưa có sản phẩm nào trong giỏ hàng.
+            

@@ -1,0 +1,190 @@
+extends ../../layouts/default.pug
+
+block main 
+
+   - if(correspondRole.permissions.includes("roles_permissions"))
+      //- h1(class="mb-4") Trang phân quyền
+      h1(class="mb-4") #{pageTitle}
+
+      - const highestRoleId = "67057d0edc0456abcc23c61b";
+
+      - if(records)
+         div(class="text-right")
+            - if(correspondRole.permissions.includes("roles_permissions"))
+               button(
+                  type="submit"
+                  class="btn btn-primary mb-3"
+                  button-submit=`/${prefixAdmin}/roles/permissions`
+               ) Cập nhật
+
+         table(
+            class="table table-hover table-sm"
+            table-permissions
+         )
+            thead
+               tr
+                  th Tính năng
+                  each eachRole in records
+                     th(
+                        class="text-center"
+                        role-id=eachRole.id
+                     ) #{eachRole.title}
+
+            //- Danh sach san pham
+            tbody
+               - 
+                  const listProductPermissions = [
+                     { label: "Xem", name: "products_view" },
+                     { label: "Thêm mới", name: "products_create" },
+                     { label: "Chỉnh sửa", name: "products_edit" },
+                     { label: "Xóa", name: "products_delete" }
+                  ];
+
+               tr
+                  td(colspan="4")
+                     b Danh sách sản phẩm
+               
+               //- tr
+               //-    td Xem
+               //-    each eachRole in records
+               //-       td(class="text-center")
+               //-          input(
+               //-             type="checkbox"
+               //-             permission-name="products_view" 
+               //-             belongs-role-id=eachRole.id
+               //-             checked=(eachRole.permissions.includes("products_view") ? true : false)
+               //-          )
+               each permission in listProductPermissions
+                  tr
+                     td #{permission.label}
+                     each eachRole in records
+                        td(class="text-center")
+                           - if(correspondRole.permissions.includes("roles_permissions"))
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 belongs-role-id=eachRole.id
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=(eachRole.id == highestRoleId ? true : false)
+                                 style=(eachRole.id == highestRoleId ? "cursor: default;" : "")
+                              )
+                           - else 
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=true
+                                 style="cursor: default;"
+                              )
+
+            //- Danh muc san pham
+            tbody 
+               - 
+                  const listProductCategoryPermissions = [
+                     { label: "Xem", name: "product-categories_view" },
+                     { label: "Thêm mới", name: "product-categories_create" },
+                     { label: "Chỉnh sửa", name: "product-categories_edit" },
+                     { label: "Xóa", name: "product-categories_delete" }
+                  ];
+
+               tr
+                  td(colspan="4")
+                     b Danh mục sản phẩm
+               
+               each permission in listProductCategoryPermissions
+                  tr
+                     td #{permission.label}
+                     each eachRole in records
+                        td(class="text-center")
+                           - if(correspondRole.permissions.includes("roles_permissions"))
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}`
+                                 belongs-role-id=eachRole.id
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=(eachRole.id == highestRoleId ? true : false)
+                                 style=(eachRole.id == highestRoleId ? "cursor: default;" : "")
+                              )
+                           - else
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=true
+                                 style="cursor: default;"
+                              )
+
+            //- Nhom quyen
+            tbody
+               - 
+                  const listRolePermissions = [
+                     { label: "Xem", name: "roles_view" },
+                     { label: "Thêm mới", name: "roles_create" },
+                     { label: "Chỉnh sửa", name: "roles_edit" },
+                     { label: "Xóa", name: "roles_delete" },
+                     { label: "Phân quyền", name: "roles_permissions" }
+                  ];
+
+               tr
+                  td(colspan="4")
+                     b Nhóm quyền
+
+               each permission in listRolePermissions
+                  tr
+                     td #{permission.label}
+                     each eachRole in records
+                        td(class="text-center")
+                           - if(correspondRole.permissions.includes("roles_permissions"))
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 belongs-role-id=eachRole.id
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=(eachRole.id == highestRoleId ? true : false)
+                                 style=(eachRole.id == highestRoleId ? "cursor: default;" : "")
+                              )
+                           - else 
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=true
+                                 style="cursor: default;"
+                              )
+
+            //- Tai khoan admin
+            tbody
+               - 
+                  const listAccountPermissions = [
+                     { label: "Xem", name: "accounts_view" },
+                     { label: "Thêm mới", name: "accounts_create" },
+                     { label: "Chỉnh sửa", name: "accounts_edit" },
+                     { label: "Xóa", name: "accounts_delete" }
+                  ];
+
+               tr
+                  td(colspan="4")
+                     b Tài khoản admin
+
+               each permission in listAccountPermissions
+                  tr
+                     td #{permission.label}
+                     each eachRole in records
+                        td(class="text-center")
+                           - if(correspondRole.permissions.includes("roles_permissions"))
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 belongs-role-id=eachRole.id
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=(eachRole.id == highestRoleId ? true : false)
+                                 style=(eachRole.id == highestRoleId ? "cursor: default;" : "")
+                              )
+                           - else 
+                              input(
+                                 type="checkbox"
+                                 permission-name=`${permission.name}` 
+                                 checked=(eachRole.permissions.includes(`${permission.name}`) ? true : false)
+                                 disabled=true
+                                 style="cursor: default;"
+                              )

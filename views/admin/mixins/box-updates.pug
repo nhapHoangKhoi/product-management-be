@@ -1,0 +1,18 @@
+mixin box-updates(link)
+   div(
+      class="input-group mb-3" 
+      box-updates=link
+   )
+      select(class="custom-select")
+         option(value="") Chọn hành động... 
+         - if(correspondRole.permissions.includes("products_edit")) 
+            option(value="active") Hoạt động  
+            option(value="inactive") Dừng hoạt động
+         - if(correspondRole.permissions.includes("products_delete")) 
+            option(value="deleteSoftManyItems") Xoá
+      
+      .input-group-append 
+         button(
+            class="btn btn-outline-primary"
+            type="button"
+         ) Cập nhật

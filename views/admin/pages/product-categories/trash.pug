@@ -1,0 +1,73 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/pagination-bar.pug
+
+block main
+   - if(correspondRole.permissions.includes("product-categories_delete"))
+
+      button(
+         class="btn btn-secondary mb-3"
+         onclick="history.back()"
+      ) Go back
+
+      //- h1 Trang các danh mục đã xóa
+
+      h1 Các danh mục đã xoá
+
+      .card.mb-3 
+      .card-header Danh sách
+      .card-body
+         button(
+            class="btn btn-secondary btn-sm mb-3 element-hidden"
+            button-recover-many=`/${prefixAdmin}/product-categories/recover-many`
+            value="recoverManyItems"
+         ) Khôi phục
+         
+         button(
+            class="btn btn-secondary btn-sm mb-3 ml-3 element-hidden"
+            button-delete-many-permanent=`/${prefixAdmin}/product-categories/delete-many-permanent`
+            value="deletePermanentManyItems"
+         ) Xoá vĩnh viễn
+
+         table.table.table-hover.table-sm
+            thead
+               tr
+                  th
+                     label(for="checkALL-box")
+                        input(name="checkAll" id="checkALL-box" type="checkbox")
+                  th(class="pl-0") STT
+                  th Danh mục
+                  th Mô tả ngắn
+                  th Xoá bởi
+                  th Hành động
+
+            tbody
+               each aCategory, index in listOfDeletedCategories
+                  tr 
+                     td
+                        label(for=`checkItem-${index+1}`)
+                           input(
+                              name="checkItem" 
+                              id=`checkItem-${index+1}`  
+                              type="checkbox" 
+                              value=aCategory.id
+                           )
+                     td(class="pl-0")
+                        label(for=`checkItem-${index+1}`) #{index+1}
+                     td #{aCategory.title}
+                     td !{aCategory.description}
+                     td
+                        div #{aCategory.deletedBy_FullName}
+                        div #{aCategory.deletedAt_Format}
+                     td
+                        button(
+                           class="btn btn-primary btn-sm"
+                           button-recover=`/${prefixAdmin}/product-categories/recover/${aCategory.id}`
+                        ) Khôi phục
+                        button(
+                           class="btn btn-danger btn-sm ml-1" 
+                           button-delete-permanent=`/${prefixAdmin}/product-categories/delete-permanent/${aCategory.id}`
+                        ) Xoá vĩnh viễn
+
+
+      +pagination-bar(pagination)

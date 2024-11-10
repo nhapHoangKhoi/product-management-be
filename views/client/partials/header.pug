@@ -1,0 +1,75 @@
+include ../mixins/sub-menu.pug
+
+header.header
+   .row.align-items-center.mx-0
+      .col-3
+         .inner-logo 
+            a(href="/")
+               img(src=settingGeneral.logo[0], alt="Logo")
+
+      .col-4
+         .box-search
+            form(
+               form-search=""
+            )
+               div(class="form-group d-flex mb-0")
+                  input(
+                     type="text"
+                     placeholder="Nhập từ khóa..."
+                     class="form-control"
+                     autocomplete="off"
+                     name="inputKeyword"
+                     value=inputKeyword
+                  )
+                  button(
+                     type="submit"
+                     class="btn btn-primary"
+                  ) Tìm
+
+            .inner-suggest
+               .inner-list
+                  //- a(href=`/songs/detail/:slugSong` class="inner-item")
+                  //-    .inner-image
+                  //-       img(src="https://backend.daca.vn/assets/images/cat-doi-noi-sau.jpg")
+                  //-    .inner-info
+                  //-       .inner-title Cắt đôi nỗi sầu
+                  //-       .inner-singer
+                  //-          <i class="fa-solid fa-microphone-lines"></i> Tăng Duy Tân
+                  //- a(href=`/songs/detail/:slugSong` class="inner-item")
+                  //-    .inner-image
+                  //-       img(src="https://backend.daca.vn/assets/images/ngay-mai-nguoi-ta-lay-chong.jpg")
+                  //-    .inner-info
+                  //-       .inner-title Ngày Mai Người Ta Lấy Chồng
+                  //-       .inner-singer
+                  //-          <i class="fa-solid fa-microphone-lines"></i> Thành Đạt
+
+      .col-5
+         .inner-menu 
+            ul 
+               li 
+                  a(href="/") Trang chủ
+               li(class="sub-menu") 
+                  a(href="/products") Sản phẩm
+
+                  - if(layoutProductCategories)
+                     +sub-menu(layoutProductCategories)
+               li
+                  a(href="/cart") Giỏ hàng (#{totalProductsInCart})
+
+               - if(theUser)
+                  li 
+                     a(href="/user/logout") Đăng xuất
+                  li
+                     a(
+                        href="/user/profile"
+                        class="user-profile btn btn-info btn-sm disabled"
+                     ) Hello, #{theUser.fullName}
+               - else
+                  li
+                     a(href="/user/login") Đăng nhập
+
+                  li
+                     a(href="/user/register") Đăng ký
+               
+               li
+                  a(href=`/${prefixAdmin}/dashboard` target="blank" style="color: red; font-weight: bold;") ADMIN

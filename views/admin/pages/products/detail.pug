@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug
+
+block main 
+
+   button(
+      class="btn btn-secondary mb-3"
+      onclick="history.back()"
+   ) Go back
+
+   if (theProductData.title)
+      h1(class="mb-4") #{theProductData.title}
+
+   if (theProductData.price)
+      div(class="mb-4") Giá: <b>#{theProductData.price}$</b>
+
+   if (theProductData.discountPercentage)
+      div(class="mb-4") Giảm giá: <b>#{theProductData.discountPercentage}%</b>
+
+   if (theProductData.stock)
+      div(class="mb-4") Còn lại: <b>#{theProductData.stock}</b>
+
+   if (theProductData.images.length > 0)
+      div(class="mb-4")
+         each image in theProductData.images
+            img(
+               src=image
+               style="width: 100px"
+            )
+
+   if (theProductData.status)
+      div(class="mb-4")
+         span Trạng thái:
+         if (theProductData.status === "active")
+            span(class="badge badge-success ml-2") Hoạt động
+         else
+            span(class="badge badge-danger ml-2") Dừng hoạt động
+
+   if (theProductData.position)
+      div(class="mb-4") Vị trí: <b>#{theProductData.position}</b>
+
+   if (theProductData.description)
+      div(class="mb-4") !{theProductData.description}

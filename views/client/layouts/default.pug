@@ -1,0 +1,32 @@
+include ../mixins/notification.pug
+
+doctype html 
+html 
+   head
+      title #{pageTitle}
+      link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+      link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer")
+
+      link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
+
+      link(rel="stylesheet", href="/css/style.css")
+
+   body 
+      include ../partials/header.pug
+
+      +notification-success-BE(2000)
+      //- +notification-success-FE(2000)
+      +notification-error-BE(5000)
+      //- +notification-error-FE(5000)
+
+      main(class="main")
+         block main 
+
+      include ../partials/footer.pug
+
+      script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js")
+      script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")
+
+      script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js") 
+
+      script(src="/js/script.js", type="module") 

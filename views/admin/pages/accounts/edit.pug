@@ -1,0 +1,125 @@
+extends ../../layouts/default.pug
+
+block main 
+   
+   - if(correspondRole.permissions.includes("accounts_edit"))
+      script
+         | const theImagesJs = !{JSON.stringify(theAccountData.avatar)};
+
+      //- h1(class="mb-4") Trang chỉnh sửa tài khoản admin
+      h1(class="mb-4") Chỉnh sửa tài khoản admin
+
+      form(
+         action=`/${prefixAdmin}/accounts/edit/${theAccountData.id}?_method=PATCH`
+         method="POST"
+         enctype="multipart/form-data"
+      )
+         div(class="form-group")
+            label(for="fullName") Họ tên <span style="color: red;">*</span>
+            input(
+               type="text"
+               class="form-control"
+               id="fullName"
+               name="fullName"
+               required
+               value=theAccountData.fullName
+            )
+
+         div(class="form-group")
+            label(for="email") Email <span style="color: red;">*</span>
+            input(
+               type="email"
+               class="form-control"
+               id="email"
+               name="email"
+               required
+               value=theAccountData.email
+            )
+
+         div(class="form-group")
+            label(for="phone") Số điện thoại
+            input(
+               type="text"
+               class="form-control"
+               id="phone"
+               name="phone"
+               value=theAccountData.phone
+            )
+
+         //------------------------------- Old
+         //- div(
+         //-    class="form-group"
+         //-    upload-image
+         //- )
+         //-    label(for="avatar") Avatar
+         //-    input(
+         //-       type="file"
+         //-       class="form-control-file"
+         //-       id="avatar"
+         //-       name="avatar"
+         //-       accept="image/*"
+         //-       upload-image-input
+         //-    )
+         //-    img(
+         //-       src=theAccountData.avatar
+         //-       class="image-preview"
+         //-       upload-image-preview
+         //-    )
+         //------------------------------- End old
+
+         //------------------------------- New (old xem ngay tren day)
+         div(class="form-group" upload-image)
+            label(for="file-upload-with-preview-images-preview") Avatar
+            div(class="inner-preview-images single-image")
+               div(
+                  class="custom-file-container" 
+                  data-upload-id="images-preview"
+               )
+               input(
+                  type="file"
+                  multiple
+                  class="form-control-file"
+                  name="avatar"
+                  accept="image/*"
+                  upload-image-input
+                  style="display: none;"
+               )
+         //------------------------------- End new (old xem ngay tren day)
+
+         div(class="form-group")
+               label(for="role_id") Phân quyền <span style="color: red;">*</span>
+               select(name="role_id" id="role_id" class="form-control")
+                  option(disabled) -- Chọn --
+                  each aRole in listOfRoles
+                     option(
+                        value=aRole.id
+                        selected=(aRole.id == theAccountData.role_id ? true : false)
+                     ) #{aRole.title}
+
+         div(class="form-group form-check form-check-inline")
+            input(
+               type="radio"
+               class="form-check-input"
+               id="statusActive"
+               name="status"
+               value="active"
+               checked=(theAccountData.status == "active" ? true : false)
+            )
+            label(for="statusActive" class="form-check-label") Hoạt động
+         
+         div(class="form-group form-check form-check-inline")
+            input(
+               type="radio"
+               class="form-check-input"
+               id="statusInActive"
+               name="status"
+               value="inactive"
+               checked=(theAccountData.status == "inactive" ? true : false)
+            )
+            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+         
+         div(class="form-group")
+            button(
+               type="submit"
+               class="btn btn-primary"
+            ) Cập nhật

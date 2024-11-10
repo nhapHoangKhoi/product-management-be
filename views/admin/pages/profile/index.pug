@@ -1,0 +1,33 @@
+extends ../../layouts/default.pug
+
+block main
+   
+   h1(class="mb-4") Thông tin cá nhân
+   
+   if (accountAdmin.avatar)
+      img(src=accountAdmin.avatar[0] width="150px" class="mb-3")
+   
+   if (accountAdmin.fullName)
+      p Họ tên: <b>#{accountAdmin.fullName}</b>
+   
+   if (accountAdmin.email)
+      p Email: <b>#{accountAdmin.email}</b>
+   
+   if (accountAdmin.phone)
+      p Số điện thoại: <b>#{accountAdmin.phone}</b>
+   
+   p 
+      span Trạng thái: 
+      - if (accountAdmin.status == "active")
+         span(class="badge badge-success ml-2") Hoạt động
+      - else
+         span(class="badge badge-danger ml-2") Dừng hoạt động
+   
+   - if (correspondRole.title)
+      p Phân quyền: <b>#{correspondRole.title}</b>
+
+
+   //- a(
+   //-    href=`/${prefixAdmin}/profile/change-password`
+   //-    class="btn btn-primary"
+   //- ) Đổi mật khẩu

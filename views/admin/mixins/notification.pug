@@ -1,0 +1,40 @@
+mixin notification-success-BE(timeExpired = 3000, showPosition = "noName")
+   - if(messages.success)
+      div(
+         class="alert alert-success show-notification fade-in-be"
+         show-notification=timeExpired
+         style=(showPosition != "noName" ? `top: ${showPosition}px;` : "")
+      )
+         span(class="inner-icon") <i class="fa-regular fa-circle-check"></i>
+         div(class="inner-content") #{messages.success}
+
+
+mixin notification-success-FE(timeExpired = 3000, showPosition = "noName")
+   div(
+      class="alert alert-success show-notification element-hidden"
+      show-notification-fe=timeExpired
+      style=(showPosition != "noName" ? `top: ${showPosition}px;` : "")
+   )
+      span(class="inner-icon") <i class="fa-regular fa-circle-check"></i>
+      div(class="inner-content")
+
+
+mixin notification-error-BE(timeExpired = 3000, showPosition = "noName")
+   - if(messages.error)
+      div(
+         class="alert alert-danger show-notification fade-in-be"
+         show-notification=timeExpired
+         style=(showPosition != "noName" ? `top: ${showPosition}px;` : "")
+      )
+         span(class="inner-icon") <i class="fa-regular fa-circle-xmark"></i>
+         div(class="inner-content") #{messages.error}
+
+
+mixin notification-error-FE(timeExpired = 3000, showPosition = "noName")
+   div(
+      class="alert alert-danger show-notification element-hidden"
+      show-notification-fe=timeExpired
+      style=(showPosition != "noName" ? `top: ${showPosition}px;` : "")
+   )
+      span(class="inner-icon") <i class="fa-regular fa-circle-xmark"></i>
+      div(class="inner-content")

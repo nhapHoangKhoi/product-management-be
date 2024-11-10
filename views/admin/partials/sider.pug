@@ -1,0 +1,48 @@
+.sider
+   .inner-menu 
+      ul 
+         li 
+            a(href=`/${prefixAdmin}/dashboard`) Tổng quan 
+         
+         
+         - if(correspondRole.permissions.includes("products_view"))
+            li 
+               a(href=`/${prefixAdmin}/products`) Danh sách sản phẩm
+         - else
+            li
+               a(class="element-disabled") Danh sách sản phẩm
+         
+
+         - if(correspondRole.permissions.includes("product-categories_view"))
+            li
+               a(href=`/${prefixAdmin}/product-categories`) Danh mục sản phẩm
+         - else
+            li
+               a(class="element-disabled") Danh mục sản phẩm
+         
+
+         - if(correspondRole.permissions.includes("roles_view"))
+            li 
+               a(href=`/${prefixAdmin}/roles`) Nhóm quyền
+         - else 
+            li
+               a(class="element-disabled") Nhóm quyền
+
+
+         - if(correspondRole.permissions.includes("roles_permissions"))
+            li 
+               a(href=`/${prefixAdmin}/roles/permissions`) Phân quyền
+         - else 
+            li
+               a(class="element-disabled") Phân quyền
+         
+
+         - if(correspondRole.permissions.includes("accounts_view"))
+            li 
+               a(href=`/${prefixAdmin}/accounts`) Tài khoản admin
+         - else
+            li
+               a(class="element-disabled") Tài khoản admin
+
+         li
+            a(href=`/${prefixAdmin}/settings/general`) Cài đặt chung

@@ -1,0 +1,11 @@
+mixin product-item(anItem)
+   .product-item
+      .inner-image
+         a(href=`/products/detail/${anItem.slug}`) 
+            img(src=anItem.images[0], alt=anItem.title)
+      .inner-content
+         h3.inner-title 
+            a(href=`/products/detail/${anItem.slug}`) #{anItem.title}
+         .inner-price-new #{anItem.priceNew}$
+         .inner-price-old #{anItem.price}$
+         .inner-discount -#{anItem.discountPercentage}%

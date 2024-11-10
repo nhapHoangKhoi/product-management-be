@@ -1,0 +1,73 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/box-head.pug
+
+block main
+   .product-detail
+      .container.my-5
+         .row
+            .col-6
+               //- .inner-thumbnail
+               //-    img(src=theProductData.thumbnail, alt=theProductData.title)
+               .inner-images
+                  div(class="swiper product-images")
+                     .swiper-wrapper
+                        each image in theProductData.images
+                           .swiper-slide
+                              .inner-image
+                                 img(src=image, alt=theProductData.title)
+                     .swiper-button-next
+                     .swiper-button-prev
+                     .swiper-pagination
+
+                  div(thumbsSlider="" class="swiper product-images-small-slide")
+                     .swiper-wrapper
+                        each image in theProductData.images
+                           .swiper-slide
+                              .inner-image
+                                 img(src=image, alt=theProductData.title)
+            .col-6
+               h1(class="inner-title") #{theProductData.title}
+
+               //- - if(theProductData.category)
+               //-    div(class="inner-category")
+               //-       span Danh mục: 
+               //-       a(href=`/products/${theProductData.category.slug}`) #{theProductData.category.title}
+
+               - if(theProductData.priceNew)
+                  div(class="inner-price-new") Giá mới: #{theProductData.priceNew}$
+
+               - if(theProductData.price)
+                  div(class="inner-price-old") Giá cũ: #{theProductData.price}$
+
+               - if(theProductData.discountPercentage)
+                  div(class="inner-percent") Giảm tới <span>#{theProductData.discountPercentage}%</span>
+
+               - if(theProductData.stock)
+                  div(class="inner-stock") Còn lại <span>#{theProductData.stock}</span> sản phẩm
+
+               form(
+                  action=`/cart/add/${theProductData.id}`
+                  method="POST"
+               )
+                  input(
+                     class="form-control mb-2"
+                     type="number"
+                     name="quantity"
+                     value="1"
+                     min="1"
+                     max=theProductData.stock
+                  )
+                  button(
+                     type="submit"
+                     class="btn btn-success btn-block"
+                  ) Thêm vào giỏ hàng
+
+      hr
+
+      .container.my-5
+         .row
+            .col-12
+               +box-head("Mô tả sản phẩm")
+
+               .inner-desc !{theProductData.description}

@@ -1,0 +1,19 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/box-head.pug
+include ../../mixins/product-item.pug
+include ../../mixins/pagination-bar.pug
+
+block main 
+   .container.my-3 
+      .row 
+         .col-12
+            +box-head(`${pageTitle}`)
+
+      .row
+         each aProduct in listOfProducts
+            .col-4.mb-3
+               +product-item(aProduct)
+      
+      
+      +pagination-bar(pagination)

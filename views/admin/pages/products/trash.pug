@@ -1,0 +1,98 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/pagination-bar.pug
+
+block main
+
+   - if(correspondRole.permissions.includes("products_delete"))
+
+      button(
+         class="btn btn-secondary mb-3"
+         onclick="history.back()"
+      ) Trở lại
+
+      //- h1 Trang các sản phẩm đã xóa
+
+      h1 Sản phẩm đã xoá
+
+      .card.mb-3 
+      .card-header Danh sách
+      .card-body
+         button(
+            class="btn btn-secondary btn-sm mb-3 element-hidden"
+            button-recover-many=`/${prefixAdmin}/products/recover-many`
+            value="recoverManyItems"
+         ) Khôi phục
+         
+         button(
+            class="btn btn-secondary btn-sm mb-3 ml-3 element-hidden"
+            button-delete-many-permanent=`/${prefixAdmin}/products/delete-many-permanent`
+            value="deletePermanentManyItems"
+         ) Xoá vĩnh viễn
+
+         table.table.table-hover.table-sm
+            thead
+               tr
+                  th
+                     label(for="checkALL-box")
+                        input(name="checkAll" id="checkALL-box" type="checkbox")
+                  th(class="pl-0") STT
+                  th Hình ảnh
+                  th Tên sản phẩm
+                  th Giá
+                  th Trạng thái
+                  th Xoá bởi
+                  th Hành động
+            tbody
+               each aProduct, index in listOfDeletedProducts
+                  tr 
+                     td
+                        label(for=`checkItem-${index+1}`)
+                           input(
+                              name="checkItem" 
+                              id=`checkItem-${index+1}`  
+                              type="checkbox" 
+                              value=aProduct.id
+                           )
+                     td(class="pl-0")
+                        label(for=`checkItem-${index+1}`) #{index+1}
+                     td
+                        img(
+                           src=aProduct.images[0]
+                           alt=aProduct.title
+                           width="80px"
+                           height="auto"
+                        )
+                     td #{aProduct.title}
+                     td #{aProduct.price}$
+                     td
+                        if(aProduct.status == "active")
+                           button(
+                              link=`/${prefixAdmin}/products/change-status/${aProduct.status}/${aProduct.id}`  
+                              class="badge badge-success" 
+                              disabled 
+                              button-change-status=""
+                           ) Hoạt động
+                        else
+                           button(
+                              link=`/${prefixAdmin}/products/change-status/${aProduct.status}/${aProduct.id}` 
+                              class="badge badge-danger"
+                              disabled
+                              button-change-status=""
+                           ) Dừng hoạt động 
+                     td
+                        div #{aProduct.deletedBy_FullName}
+                        div #{aProduct.deletedAt_Format}
+                     td
+                        div(class="buttons")
+                           button(
+                              class="btn btn-primary btn-sm"
+                              button-recover=`/${prefixAdmin}/products/recover/${aProduct.id}`
+                           ) Khôi phục
+                           button(
+                              class="btn btn-danger btn-sm" 
+                              button-delete-permanent=`/${prefixAdmin}/products/delete-permanent/${aProduct.id}`
+                           ) Xoá vĩnh viễn
+
+
+      +pagination-bar(pagination)

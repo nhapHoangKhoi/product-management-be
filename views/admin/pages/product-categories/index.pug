@@ -1,0 +1,190 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/filter-status.pug
+include ../../mixins/pagination-bar.pug
+
+block main
+   
+   - if(correspondRole.permissions.includes("product-categories_view"))
+      //- h1(class="mb-4") Danh mục sản phẩm
+
+      h1(class="main-header mb-4")
+         div(class="inner-title") Danh mục sản phẩm
+
+         - if(correspondRole.permissions.includes("product-categories_delete"))
+            button(
+               class="btn btn-primary" 
+               button-trash=`/${prefixAdmin}/product-categories/trash`
+            ) Recently deleted
+         - else
+            button(
+               class="btn btn-primary disabled"
+               style="cursor: default;" 
+            ) Recently deleted
+
+      .card.mb-3 
+         .card-header Bộ lọc
+         .card-body 
+            .row 
+               .col-6
+                  +filter-status(filterStatusForFE)
+
+      .card.mb-3
+         .card-header Danh sách 
+         .card-body
+            .row.align-items-center.mb-4
+               .col-8 
+                  - if(correspondRole.permissions.includes("product-categories_delete"))
+                     button(
+                        class="btn btn-secondary btn-sm element-hidden"
+                        button-delete-many-soft=`/${prefixAdmin}/product-categories/change-multi`
+                        value="deleteSoftManyItems"
+                     ) Xoá
+
+                  - if(correspondRole.permissions.includes("product-categories_edit"))
+                     button(
+                        class="btn btn-secondary btn-sm element-hidden ml-2"
+                        button-update-active-many=`/${prefixAdmin}/product-categories/change-multi`
+                        value="active"
+                     ) Hoạt động
+                     button(
+                        class="btn btn-secondary btn-sm element-hidden ml-2"
+                        button-update-inactive-many=`/${prefixAdmin}/product-categories/change-multi`
+                        value="inactive"
+                     ) Dừng hoạt động
+
+               .col-4.text-right 
+                  - if(correspondRole.permissions.includes("product-categories_create"))
+                     a(
+                        href=`/${prefixAdmin}/product-categories/create`
+                        class="btn btn-outline-info"
+                     ) + Thêm mới
+                  - else
+                     button(
+                        class="btn btn-secondary disabled"
+                        style="cursor: default;"
+                     ) + Thêm mới
+                     
+
+            table.table.table-hover.table-sm
+               thead
+                  tr
+                     - if(correspondRole.permissions.includes("product-categories_edit"))
+                        th 
+                           label(for="checkALL-box")
+                              input(name="checkAll" id="checkALL-box" type="checkbox")
+                     th STT
+                     th Tên danh mục
+                     th Vị trí
+                     th Trạng thái
+                     th Tạo bởi
+                     th Cập nhật
+                     th Hành động
+               
+               tbody
+                  each category, index in listOfCategories
+                     tr
+                        - if(correspondRole.permissions.includes("product-categories_edit"))
+                           td 
+                              label(for=`checkItem-${index+1}`)
+                                 input(
+                                    onclick=`event.stopPropagation();`
+                                    name="checkItem"
+                                    id=`checkItem-${index+1}` 
+                                    type="checkbox" 
+                                    value=category.id
+                                 )
+
+                        td #{index+1}
+
+                        td #{category.title}
+
+                        td
+                           - if(correspondRole.permissions.includes("product-categories_edit"))
+                              input(
+                                 onclick=`event.stopPropagation();`
+                                 link=`/${prefixAdmin}/product-categories/change-position/${category.id}`
+                                 type="number"
+                                 name="position"
+                                 value=category.position
+                                 min="1"
+                                 style="width: 60px"
+                              )
+                           - else
+                              input(
+                                 onclick=`event.stopPropagation();`
+                                 value=category.position
+                                 min="1"
+                                 style="width: 60px; cursor: default;"
+                                 disabled=true
+                              )
+
+                        td
+                           - if(correspondRole.permissions.includes("product-categories_edit"))
+                              - if(category.status == "active")
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    link=`/${prefixAdmin}/product-categories/change-status/${category.status}/${category.id}`  
+                                    class="btn badge badge-success" 
+                                    button-change-status=""
+                                 ) Hoạt động
+                              - else
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    link=`/${prefixAdmin}/product-categories/change-status/${category.status}/${category.id}` 
+                                    class="btn badge badge-danger"
+                                    button-change-status=""
+                                 ) Dừng hoạt động
+                           - else 
+                              - if(category.status == "active")
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn badge badge-success disabled"
+                                    style="cursor: default;" 
+                                 ) Hoạt động
+                              - else
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn badge badge-danger disabled"
+                                    style="cursor: default;" 
+                                 ) Dừng hoạt động 
+
+                        td
+                           div #{category.createdBy_FullName}
+                           div #{category.createdAt_Format}
+
+                        td
+                           div #{category.updatedBy_FullName}
+                           div #{category.updatedAt_Format}
+
+                        td
+                           div(class="buttons")
+                              - if(correspondRole.permissions.includes("product-categories_edit"))
+                                 a(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn btn-warning btn-sm"
+                                    href=`/${prefixAdmin}/product-categories/edit/${category.id}`
+                                 ) Sửa
+                              - else 
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn btn-warning btn-sm disabled"
+                                    style="cursor: default;" 
+                                 ) Sửa
+
+
+                              - if(correspondRole.permissions.includes("product-categories_delete"))
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn btn-danger btn-sm" 
+                                    button-delete-soft=`/${prefixAdmin}/product-categories/delete/${category.id}`
+                                 ) Xoá
+                              - else 
+                                 button(
+                                    onclick=`event.stopPropagation();`
+                                    class="btn btn-danger btn-sm disabled"
+                                    style="cursor: default;" 
+                                 ) Xoá
+
+
+      +pagination-bar(pagination)

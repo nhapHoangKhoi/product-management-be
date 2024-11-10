@@ -1,0 +1,15 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/box-head.pug
+include ../../mixins/product-item.pug
+
+block main 
+   .container.my-3
+      .row 
+         .col-12 
+            +box-head("Kết quả tìm kiếm: " + inputKeyword)
+
+      .row
+         each aProduct in listProducts
+            .col-4.mb-3
+               +product-item(aProduct)

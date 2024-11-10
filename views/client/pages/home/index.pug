@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/box-head.pug
+include ../../mixins/product-item.pug
+
+block main 
+
+   //- h1 Trang chủ
+
+   .container.my-3 
+      .row 
+         .col-12
+            +box-head("Sản phẩm nổi bật")
+
+      .row
+         each aProduct in productsFeatured
+            .col-4.mb-3
+               +product-item(aProduct)
+
+   div(style="background-color: #EFEFEF; padding: 60px 0;")
+      .container.my-3 
+         .row 
+            .col-12
+               +box-head("Sản phẩm mới nhất")
+
+         .row
+            each aProduct in productsNewest
+               .col-4.mb-3 
+                  +product-item(aProduct)

@@ -1,0 +1,59 @@
+extends ../../layouts/default.pug
+
+block main 
+   h1 Trang tổng quan
+
+   .row.mt-4 
+      .col-12 
+         .card.mb-4 
+            .card-header Thông tin tài khoản 
+            .card-body 
+               - if(accountAdmin.avatar)
+                  img(
+                     src=accountAdmin.avatar[0]
+                     style="height: 100px; margin-bottom: 15px;"
+                  )
+               
+               - if(accountAdmin.fullName)
+                  p Họ tên: <b>#{accountAdmin.fullName}</b>
+
+               - if(accountAdmin.email)
+                  p Email: <b>#{accountAdmin.email}</b>
+
+               - if(accountAdmin.phone)
+                  p Số điện thoại: <b>#{accountAdmin.phone}</b>
+
+               - if(correspondRole.title)
+                  p Phân quyền: <b>#{correspondRole.title}</b>
+
+      .col-6
+         .card.mb-4
+            .card-header Danh mục sản phẩm
+            .card-body
+               p Số lượng: <b>#{statistics.productCategory.total}</b>
+               p Hoạt động: <b>#{statistics.productCategory.active}</b>
+               p Dừng hoạt động: <b>#{statistics.productCategory.inactive}</b>
+
+      .col-6
+         .card.mb-4
+            .card-header Sản phẩm
+            .card-body
+               p Số lượng: <b>#{statistics.product.total}</b>
+               p Hoạt động: <b>#{statistics.product.active}</b>
+               p Dừng hoạt động: <b>#{statistics.product.inactive}</b>
+      
+      .col-6
+         .card.mb-4
+            .card-header Tài khoản admin
+            .card-body
+               p Số lượng: <b>#{statistics.accountAdmin.total}</b>
+               p Hoạt động: <b>#{statistics.accountAdmin.active}</b>
+               p Dừng hoạt động: <b>#{statistics.accountAdmin.inactive}</b>
+      
+      .col-6
+         .card.mb-4
+            .card-header Tài khoản client
+            .card-body
+               p Số lượng: <b>#{statistics.user.total}</b>
+               p Hoạt động: <b>#{statistics.user.active}</b>
+               p Dừng hoạt động: <b>#{statistics.user.inactive}</b>

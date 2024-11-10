@@ -1,0 +1,44 @@
+extends ../../layouts/default.pug
+
+block main
+
+   - if(correspondRole.permissions.includes("roles_edit")) 
+   
+      button(
+         class="btn btn-secondary mb-3"
+         onclick="history.back()"
+      ) Go back
+
+      //- h1(class="mb-4") Trang chỉnh sửa nhóm quyền
+      h1(class="mb-4") #{pageTitle}
+
+      form(
+         action=`/${prefixAdmin}/roles/edit/${theRoleData.id}?_method=PATCH`
+         method="POST"
+      )
+         div(class="form-group")
+            label(for="title") Tiêu đề <span style="color: red;">*</span>
+            input(
+               type="text"
+               class="form-control"
+               id="title"
+               name="title"
+               required
+               value=theRoleData.title
+            )
+
+         div(class="form-group")
+            label(for="description") Mô tả
+            input(
+               type="text"
+               class="form-control"
+               id="description"
+               name="description"
+               value=theRoleData.description
+            )
+
+         div(class="form-group")
+            button(
+               type="submit"
+               class="btn btn-primary"
+            ) Cập nhật

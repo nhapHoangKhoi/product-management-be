@@ -1,0 +1,70 @@
+mixin select-hierarchy(listOfItems, level = 1, parentId = "")
+   each itemParent in listOfItems
+      - const prefix = Array(level + 1).join("--")
+
+      option(
+         value=`${itemParent.id}`
+         selected=(itemParent.id == parentId ? true : false)
+      ) #{prefix} #{itemParent.title}
+
+      if(itemParent.children)
+         +select-hierarchy(itemParent.children, level + 1, parentId)
+
+
+//- prefix : tiền tố
+
+//- -- Thời trang
+//- ---- Thời trang Nam
+//- ------ Áo Nam 
+//- ------ Quần Nam
+//- ------ Mũ Nam
+//- ---- Thời trang Nữ
+//- ------ Áo Nữ
+//- ------ Quần Nữ
+//- -- Điện thoại
+//- ---- Điện thoại Samsung 
+//- ---- Điện thoại iPhone
+
+//- [
+//-    {
+//-       title: "Thời trang",
+//-       children: [
+//-          {
+//-             title: "Thời trang Nam",
+//-             children: [
+//-                {
+//-                   title: "Áo Nam"
+//-                },
+//-                {
+//-                   title: "Quần Nam"
+//-                },
+//-                {
+//-                   title: "Mũ Nam"
+//-                },
+//-             ]
+//-          },
+//-          {
+//-             title: "Thời trang Nữ",
+//-             children: [
+//-                {
+//-                   title: "Áo Nữ"
+//-                },
+//-                {
+//-                   title: "Quần Nữ"
+//-                },
+//-             ]
+//-          }
+//-       ],
+//-    },
+//-    {
+//-       title: "Điện thoại",
+//-       children: [
+//-          {
+//-             title: "Điện thoại Samsung"
+//-          },
+//-          {
+//-             title: "Điện thoại iPhone"
+//-          }
+//-       ]
+//-    }
+//- ]

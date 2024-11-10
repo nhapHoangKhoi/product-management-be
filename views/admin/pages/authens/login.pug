@@ -1,0 +1,41 @@
+extends ../../layouts/authen.pug
+
+block main
+   .container.my-5
+      .row.justify-content-center
+         .col-8
+            h1(class="text-center") Đăng nhập
+
+            form(
+               action=`/${prefixAdmin}/authen/login`
+               method="POST"
+            )
+               div(class="form-group")
+                  label(for="email") Email <span style="color: red;">*</span>
+                  input(
+                     type="email"
+                     class="form-control"
+                     id="email"
+                     name="email"
+                     required
+                     placeholder="Default: levanb@gmail.com"
+                     value="levanb@gmail.com"
+                  )
+
+               div(class="form-group")
+                  label(for="password") Mật khẩu <span style="color: red;">*</span>
+                  input(
+                     type="password"
+                     class="form-control"
+                     id="password"
+                     name="password"
+                     required
+                     placeholder="Same password for all: 123456"
+                     value="123456"
+                  )
+
+               div(class="form-group")
+                  button(
+                     type="submit"
+                     class="btn btn-primary btn-block"
+                  ) Đăng nhập
