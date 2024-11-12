@@ -83,7 +83,11 @@ module.exports.index = async (request, response) =>
       // console.log(keyword); // cắt doi
       // console.log(keywordSlug); // cat-doi
 
-      const regexKeyword = new RegExp(keyword, "i");
+      const listKeywords = keyword.split(/\s+/).map(word => {
+         return word.replace(/[-\/\\^$.*+?()[\]{}|]/g, '\\$&'); // escape special characters
+      });
+
+      const regexKeyword = new RegExp(listKeywords.join(".*"), "i"); // ".*" allows for any characters in between
       const regexKeywordSlug = new RegExp(keywordSlug, "i");
 
       productFind.$or = [
@@ -161,8 +165,7 @@ module.exports.index = async (request, response) =>
 module.exports.getSuggestions = async (request, response) =>
 {
    const productFind = {
-      deleted: false,
-      status: "active"
+      deleted: false
    };
 
    // ----- Search products ----- //
@@ -178,7 +181,11 @@ module.exports.getSuggestions = async (request, response) =>
       // console.log(keyword); // cắt doi
       // console.log(keywordSlug); // cat-doi
 
-      const regexKeyword = new RegExp(keyword, "i");
+      const listKeywords = keyword.split(/\s+/).map(word => {
+         return word.replace(/[-\/\\^$.*+?()[\]{}|]/g, '\\$&'); // escape special characters
+      });
+
+      const regexKeyword = new RegExp(listKeywords.join(".*"), "i"); // ".*" allows for any characters in between
       const regexKeywordSlug = new RegExp(keywordSlug, "i");
 
       productFind.$or = [
