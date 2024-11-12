@@ -38,7 +38,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "client/pages/products/index.pug", 
       {
-         pageTitle: "Danh sách sản phẩm",
+         pageTitle: "Our Products",
          listOfProducts: listOfProducts,
          pagination: pagination
       }
@@ -155,7 +155,7 @@ module.exports.getDetailPage = async (request, response) =>
       response.render(
          "client/pages/products/detail.pug", 
          {
-            pageTitle: "Chi tiết sản phẩm",
+            pageTitle: "Product Detail",
             theProductData: theProductData
          }
       );

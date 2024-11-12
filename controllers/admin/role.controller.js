@@ -16,7 +16,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "admin/pages/roles/index.pug", 
       {
-         pageTitle: "Nhóm quyền",
+         pageTitle: "Roles",
          listOfRoles: listOfRoles
       }
    );
@@ -48,7 +48,7 @@ module.exports.changeMulti = async (request, response) =>
                      deleted: true
                   }
                );
-               request.flash("success", "Xoá thành công!"); // chi la dat ten key "success"
+               request.flash("success", "Delete successfully!"); // key named "success"
             }
             break;
          
@@ -63,7 +63,7 @@ module.exports.changeMulti = async (request, response) =>
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -84,7 +84,7 @@ module.exports.softDeleteRole = async (request, response) =>
             }
          );
       
-         request.flash("success", "Xoá thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Xoá thành công!"); // key named "success"
       
          response.json(
             {
@@ -97,7 +97,7 @@ module.exports.softDeleteRole = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -110,7 +110,7 @@ module.exports.getCreatePage = (request, response) =>
    response.render(
       "admin/pages/roles/create.pug", 
       {
-         pageTitle: "Tạo mới nhóm quyền",
+         pageTitle: "Create New Role",
       }
    );
 }
@@ -123,11 +123,11 @@ module.exports.createRole = async (request, response) =>
       await newRoleModel.save();
    
       // response.send("OK Frontend");
-      request.flash("success", "Thêm mới nhóm quyền thành công!");
+      request.flash("success", "Create successfully!");
       response.redirect(`/${systemConfigs.prefixAdmin}/roles`);
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -147,12 +147,12 @@ module.exports.getEditPage = async (request, response) =>
 
       const theRoleData = await RoleModel.findOne(roleFind);
       
-      if(theRoleData) // check != null, vi co render ra giao dien nen them if else cho nay nua
+      if(theRoleData) // check != null, because rendering out the interface, so add these if else
       {
          response.render(
             "admin/pages/roles/edit.pug", 
             {
-               pageTitle: "Chỉnh sửa nhóm quyền",
+               pageTitle: "Edit Role",
                theRoleData: theRoleData
             }
          );
@@ -162,9 +162,9 @@ module.exports.getEditPage = async (request, response) =>
       }
    }
    catch(error) {
-      // catch la do nguoi ta hack, pha
+      // catch: hack
       // console.log(error);
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/${systemConfigs.prefixAdmin}/roles`);
    }
 }
@@ -184,19 +184,19 @@ module.exports.editRole = async (request, response) =>
             request.body
          );
    
-         request.flash("success", "Cập nhật thành công!");
+         request.flash("success", "Update successfully!");
          // response.send("OK Frontend");
-         response.redirect("back"); // tuc la quay ve lai trang [GET] /admin/roles/edit
+         response.redirect("back"); // back to page [GET] /admin/roles/edit
       }
       catch(error) {
-         // catch la do nguoi ta hack, pha
-         console.log(error);
-         request.flash("error", "ID nhóm quyền không hợp lệ!");
+         // catch: hack
+         // console.log(error);
+         request.flash("error", "ID not valid!");
          response.redirect(`/${systemConfigs.prefixAdmin}/roles`);
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -215,7 +215,7 @@ module.exports.getPermissionPage = async (request, response) =>
    response.render(
       "admin/pages/roles/permissions.pug", 
       {
-         pageTitle: "Phân quyền",
+         pageTitle: "Permissions",
          records: records
       }
    );
@@ -240,17 +240,17 @@ module.exports.editPermissions = async (request, response) =>
          );
       }
    
-      // request.flash("success", "Cập nhật thành công!"); // cach nay truoc gio, thu dung cach khac
+      // request.flash("success", "Update successfully!"); // cach nay truoc gio, thu dung cach khac
    
       response.json(
          {
             code: 200,
-            message: "Cập nhật thành công!"
+            message: "Update successfully!"
          }
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -301,7 +301,7 @@ module.exports.recoverRole= async (request, response) =>
             }
          );
       
-         request.flash("success", "Khôi phục thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover successfully!"); // key named "success"
       
          response.json(
             {
@@ -314,7 +314,7 @@ module.exports.recoverRole= async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -335,7 +335,7 @@ module.exports.recoverManyRoles = async (request, response) =>
             }
          );
 
-         request.flash("success", "Khôi phục sản phẩm thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover successfully"); // key "success"
 
          response.json(
             {
@@ -345,7 +345,7 @@ module.exports.recoverManyRoles = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -374,7 +374,7 @@ module.exports.permanentDeleteRole = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -400,7 +400,7 @@ module.exports.permanentDeleteManyRoles = async (request, response) =>
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //

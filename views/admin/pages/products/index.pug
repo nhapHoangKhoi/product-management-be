@@ -9,22 +9,22 @@ block main
 
    - if(correspondRole.permissions.includes("products_view"))
       h1(class="main-header mb-4")
-         div(class="inner-title") Quản lý sản phẩm
+         div(class="inner-title") Product Management
 
          - if(correspondRole.permissions.includes("products_delete"))
             button(
                class="btn btn-primary" 
                button-trash=`/${prefixAdmin}/products/trash`
-            ) Đã xóa gần đây
+            ) Recently deleted
          - else
             button(
                class="btn btn-primary disabled"
                style="cursor: default;" 
-            ) Đã xóa gần đây
+            ) Recently deleted
 
 
       .card.mb-3 
-         .card-header Bộ lọc và Tìm kiếm
+         .card-header Filter and Searching
          .card-body 
             .row 
                .col-6
@@ -51,7 +51,7 @@ block main
 
 
       .card.mb-3 
-         .card-header Danh sách
+         .card-header List
          .card-body
 
             +box-updates(`/${prefixAdmin}/products/change-multi`)
@@ -61,12 +61,12 @@ block main
                   a(
                      href=`/${prefixAdmin}/products/create`
                      class="btn btn-outline-info"
-                  ) + Thêm mới
+                  ) + Create new product
                - else
                   button(
                      class="btn btn-secondary disabled"
                      style="cursor: default;"
-                  ) + Thêm mới
+                  ) + Create new product
 
 
             div(class="mb-3" sort-bar)
@@ -77,17 +77,17 @@ block main
                         name="sort"
                         select-sort
                      )
-                        option(value="position-descending" option-default) Vị trí giảm dần
-                        option(value="position-ascending") Vị trí tăng dần
-                        option(value="price-descending") Giá giảm dần
-                        option(value="price-ascending") Giá tăng dần
-                        option(value="title-ascending") Tiêu đề A - Z
-                        option(value="title-descending") Tiêu đề Z - A
+                        option(value="position-descending" option-default) Position: High to Low
+                        option(value="position-ascending") Position: Low to High
+                        option(value="price-descending") Price: High to Low
+                        option(value="price-ascending") Price: Low to High
+                        option(value="title-ascending") Title: A - Z
+                        option(value="title-descending") Title: Z - A
                   .col-6.pl-0
                      div(
                         class="text-warning element-hidden"
                         sort-clear
-                     ) Xoá
+                     ) Remove
             
             
             table.table.table-hover.table-sm
@@ -97,15 +97,15 @@ block main
                         th 
                            label(for="checkALL-box")
                               input(name="checkAll" id="checkALL-box" type="checkbox")
-                     th STT
-                     th Hình ảnh
-                     th Tên sản phẩm
-                     th Giá
-                     th Vị trí
-                     th Trạng thái
-                     th Tạo bởi
-                     th Cập nhật
-                     th Hành động
+                     th No.
+                     th Thumbnail
+                     th Product Name
+                     th Price
+                     th Position
+                     th Status
+                     th Created by
+                     th Updated by
+                     th Actions
                
                tbody
                   each aProduct, index in listOfProducts
@@ -164,27 +164,27 @@ block main
                                     link=`/${prefixAdmin}/products/change-status/${aProduct.status}/${aProduct.id}`  
                                     class="btn badge badge-success" 
                                     button-change-status=""
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     link=`/${prefixAdmin}/products/change-status/${aProduct.status}/${aProduct.id}` 
                                     class="btn badge badge-danger"
                                     button-change-status=""
-                                 ) Dừng hoạt động 
+                                 ) Inactive
                            - else 
                               - if(aProduct.status == "active")
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-success disabled"
                                     style="cursor: default;" 
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-danger disabled"
                                     style="cursor: default;" 
-                                 ) Dừng hoạt động 
+                                 ) Inactive 
                         
                         td(onclick=`location.href='/${prefixAdmin}/products/detail/${aProduct.id}'`, style="cursor: pointer;") 
                            div #{aProduct.createdBy_FullName}
@@ -201,13 +201,13 @@ block main
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm"
                                     href=`/${prefixAdmin}/products/edit/${aProduct.id}`
-                                 ) Sửa
+                                 ) Edit
                               - else 
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm disabled"
                                     style="cursor: default;" 
-                                 ) Sửa
+                                 ) Edit
 
                               
                               - if(correspondRole.permissions.includes("products_delete"))
@@ -215,12 +215,12 @@ block main
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm" 
                                     button-delete-soft=`/${prefixAdmin}/products/delete/${aProduct.id}`
-                                 ) Xoá
+                                 ) Delete
                               - else 
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm disabled"
                                     style="cursor: default;" 
-                                 ) Xoá
+                                 ) Delete
 
       +pagination-bar(pagination)

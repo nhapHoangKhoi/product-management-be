@@ -12,7 +12,7 @@ module.exports.getRegisterPage = (request, response) =>
    response.render(
       "client/pages/user/register.pug", 
       {
-         pageTitle: "Đăng ký tài khoản"
+         pageTitle: "Sign up"
       }
    );
 }
@@ -29,7 +29,7 @@ module.exports.registerUserAccount = async (request, response) =>
    );
 
    if(existedUser) {
-      request.flash("error", "Email đã tồn tại!");
+      request.flash("error", "Email existed!");
       response.redirect("back"); // go back to page [GET] /user/register
       return;
    }
@@ -77,7 +77,7 @@ module.exports.getLoginPage = (request, response) =>
    response.render(
       "client/pages/user/login.pug", 
       {
-         pageTitle: "Đăng nhập tài khoản"
+         pageTitle: "Login"
       }
    );
 }
@@ -96,19 +96,20 @@ module.exports.loginUserAccount = async (request, response) =>
    );
 
    if(!theAccount) {
-      request.flash("error", "Email không tồn tại!");
+      // request.flash("error", "Email không tồn tại!"); // ban chat
+      request.flash("error", "Email or password incorrect!");
       response.redirect("back"); // go back to page [GET] /user/login
       return;
    }
 
    if(md5(inputPassword) != theAccount.password) {
-      request.flash("error", "Email hoặc mật khẩu không đúng!");
+      request.flash("error", "Email or password incorrect!");
       response.redirect("back"); // go back to page [GET] /user/login
       return;
    }
 
    if(theAccount.status != "active") {
-      request.flash("error", "Tài khoản đang bị khoá!");
+      request.flash("error", "The account is being locked!");
       response.redirect("back"); // go back to page [GET] /user/login
       return;
    }
@@ -147,7 +148,7 @@ module.exports.getForgotPasswordPage = (request, response) =>
    response.render(
       "client/pages/user/forgot-password.pug", 
       {
-         pageTitle: "Lấy lại mật khẩu"
+         pageTitle: "Forgot Password"
       }
    );
 }
@@ -166,7 +167,7 @@ module.exports.forgotPassword = async (request, response) =>
    );
 
    if(!existedUser) {
-      request.flash("error", "Email không tồn tại trong hệ thống!");
+      request.flash("error", "Email not existed in the system!");
       response.redirect("back"); // go back to page [GET] /user/password/forgot
       return;
    }
@@ -204,7 +205,7 @@ module.exports.forgotPassword = async (request, response) =>
 
    // ----- Buoc 2 : Automatically send OTP through user's email ----- //
    const subject = "OTP - Reset password";
-   const content = `Mã OTP xác thực của bạn là: <b style="color: red;">${otp}</b>. Mã OTP có hiệu lực trong 3 phút. Vui lòng không cung cấp mã OTP cho người khác`;
+   const content = `To verify your email address, please use the following One Time Password (OTP): <b style="color: red;">${otp}</b>. The code is valid for 3 minutes. Do not share this code with anyone.`;
 
    sendEmailHelper.sendEmail(inputEmail, subject, content);
    // ----- End buoc 2 : Automatically send OTP through user's email ----- //
@@ -223,7 +224,7 @@ module.exports.getOtpPasswordPage = (request, response) =>
    response.render(
       "client/pages/user/otp-password.pug", 
       {
-         pageTitle: "Xác thực OTP",
+         pageTitle: "Verify OTP",
          email: email
       }
    );
@@ -243,7 +244,7 @@ module.exports.otpPassword = async (request, response) =>
    );
 
    if(!comparedData) {
-      request.flash("error", "OTP không hợp lệ!");
+      request.flash("error", "OTP incorrect!");
       response.redirect("back"); // go back to page [GET] /user/password/otp
       return;
    }
@@ -275,7 +276,7 @@ module.exports.getResetPasswordPage = (request, response) =>
    response.render(
       "client/pages/user/reset-password.pug", 
       {
-         pageTitle: "Đổi mật khẩu mới"
+         pageTitle: "Reset Password"
       }
    );
 }
@@ -296,7 +297,7 @@ module.exports.resetPassword = async (request, response) =>
       }
    );
 
-   request.flash("success", "Đổi mật khẩu thành công!");
+   request.flash("success", "Reset password successfully!");
    response.redirect("/");
 }
 // ----------------End []------------------- //

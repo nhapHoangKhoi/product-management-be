@@ -12,22 +12,22 @@ block main
 
       //- h1 Trang các danh mục đã xóa
 
-      h1 Các danh mục đã xoá
+      h1 Recently Deleted
 
       .card.mb-3 
-      .card-header Danh sách
+      .card-header List
       .card-body
          button(
             class="btn btn-secondary btn-sm mb-3 element-hidden"
             button-recover-many=`/${prefixAdmin}/product-categories/recover-many`
             value="recoverManyItems"
-         ) Khôi phục
+         ) Recover
          
          button(
             class="btn btn-secondary btn-sm mb-3 ml-3 element-hidden"
             button-delete-many-permanent=`/${prefixAdmin}/product-categories/delete-many-permanent`
             value="deletePermanentManyItems"
-         ) Xoá vĩnh viễn
+         ) Delete permanently
 
          table.table.table-hover.table-sm
             thead
@@ -35,11 +35,11 @@ block main
                   th
                      label(for="checkALL-box")
                         input(name="checkAll" id="checkALL-box" type="checkbox")
-                  th(class="pl-0") STT
-                  th Danh mục
-                  th Mô tả ngắn
-                  th Xoá bởi
-                  th Hành động
+                  th(class="pl-0") No.
+                  th Category
+                  th Short Description
+                  th Deleted by
+                  th Actions
 
             tbody
                each aCategory, index in listOfDeletedCategories
@@ -63,11 +63,11 @@ block main
                         button(
                            class="btn btn-primary btn-sm"
                            button-recover=`/${prefixAdmin}/product-categories/recover/${aCategory.id}`
-                        ) Khôi phục
+                        ) Recover
                         button(
                            class="btn btn-danger btn-sm ml-1" 
                            button-delete-permanent=`/${prefixAdmin}/product-categories/delete-permanent/${aCategory.id}`
-                        ) Xoá vĩnh viễn
+                        ) Delete permanently
 
 
       +pagination-bar(pagination)

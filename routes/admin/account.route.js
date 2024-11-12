@@ -27,7 +27,7 @@ router.get("/create", controllerAdmin.getCreatePage);
 router.post(
    "/create", 
 
-   // de up anh tu frontend len ung dung backend nodejs
+   // upload image from frontend to backend nodejs
    upload.fields(
       [
          {
@@ -36,7 +36,7 @@ router.post(
          }
       ]
    ), 
-   functionsUploadFileToCloud.uploadFields, // de up anh tu backend nodejs len cloudinary
+   functionsUploadFileToCloud.uploadFields, // upload image from backend nodejs to cloudinary
    validate.createAccountAdmin,
    controllerAdmin.createAccountAdmin
 );
@@ -56,7 +56,7 @@ router.get("/edit/:idAccount", controllerAdmin.getEditPage);
 router.patch(
    "/edit/:idAccount", 
 
-   // de up anh tu frontend len ung dung backend nodejs
+   // upload image from frontend to backend nodejs
    upload.fields(
       [
          {
@@ -65,7 +65,7 @@ router.patch(
          }
       ]
    ), 
-   functionsUploadFileToCloud.uploadFields, // de up anh tu backend nodejs len cloudinary
+   functionsUploadFileToCloud.uploadFields, // upload image from backend nodejs to cloudinary
    validate.editAccountAdmin,
    controllerAdmin.editAccountAdmin
 );

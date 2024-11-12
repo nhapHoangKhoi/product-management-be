@@ -125,7 +125,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "admin/pages/dashboard/index.pug", 
       {
-         pageTitle: "Trang dashboard",
+         pageTitle: "Dashboard",
          statistics: statistics
       }
    );

@@ -9,7 +9,7 @@ block main
       //- h1(class="mb-4") Danh mục sản phẩm
 
       h1(class="main-header mb-4")
-         div(class="inner-title") Danh mục sản phẩm
+         div(class="inner-title") Product Categories
 
          - if(correspondRole.permissions.includes("product-categories_delete"))
             button(
@@ -23,14 +23,14 @@ block main
             ) Recently deleted
 
       .card.mb-3 
-         .card-header Bộ lọc
+         .card-header Filter
          .card-body 
             .row 
                .col-6
                   +filter-status(filterStatusForFE)
 
       .card.mb-3
-         .card-header Danh sách 
+         .card-header List 
          .card-body
             .row.align-items-center.mb-4
                .col-8 
@@ -39,31 +39,31 @@ block main
                         class="btn btn-secondary btn-sm element-hidden"
                         button-delete-many-soft=`/${prefixAdmin}/product-categories/change-multi`
                         value="deleteSoftManyItems"
-                     ) Xoá
+                     ) Delete
 
                   - if(correspondRole.permissions.includes("product-categories_edit"))
                      button(
                         class="btn btn-secondary btn-sm element-hidden ml-2"
                         button-update-active-many=`/${prefixAdmin}/product-categories/change-multi`
                         value="active"
-                     ) Hoạt động
+                     ) Active
                      button(
                         class="btn btn-secondary btn-sm element-hidden ml-2"
                         button-update-inactive-many=`/${prefixAdmin}/product-categories/change-multi`
                         value="inactive"
-                     ) Dừng hoạt động
+                     ) Inactive
 
                .col-4.text-right 
                   - if(correspondRole.permissions.includes("product-categories_create"))
                      a(
                         href=`/${prefixAdmin}/product-categories/create`
                         class="btn btn-outline-info"
-                     ) + Thêm mới
+                     ) + Create new category
                   - else
                      button(
                         class="btn btn-secondary disabled"
                         style="cursor: default;"
-                     ) + Thêm mới
+                     ) + Create new category
                      
 
             table.table.table-hover.table-sm
@@ -73,13 +73,13 @@ block main
                         th 
                            label(for="checkALL-box")
                               input(name="checkAll" id="checkALL-box" type="checkbox")
-                     th STT
-                     th Tên danh mục
-                     th Vị trí
-                     th Trạng thái
-                     th Tạo bởi
-                     th Cập nhật
-                     th Hành động
+                     th No.
+                     th Category Name
+                     th Position
+                     th Status
+                     th Created by
+                     th Updated by
+                     th Actions
                
                tbody
                   each category, index in listOfCategories
@@ -127,27 +127,27 @@ block main
                                     link=`/${prefixAdmin}/product-categories/change-status/${category.status}/${category.id}`  
                                     class="btn badge badge-success" 
                                     button-change-status=""
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     link=`/${prefixAdmin}/product-categories/change-status/${category.status}/${category.id}` 
                                     class="btn badge badge-danger"
                                     button-change-status=""
-                                 ) Dừng hoạt động
+                                 ) Inactive
                            - else 
                               - if(category.status == "active")
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-success disabled"
                                     style="cursor: default;" 
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-danger disabled"
                                     style="cursor: default;" 
-                                 ) Dừng hoạt động 
+                                 ) Inactive
 
                         td
                            div #{category.createdBy_FullName}
@@ -164,13 +164,13 @@ block main
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm"
                                     href=`/${prefixAdmin}/product-categories/edit/${category.id}`
-                                 ) Sửa
+                                 ) Edit
                               - else 
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm disabled"
                                     style="cursor: default;" 
-                                 ) Sửa
+                                 ) Edit
 
 
                               - if(correspondRole.permissions.includes("product-categories_delete"))
@@ -178,13 +178,13 @@ block main
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm" 
                                     button-delete-soft=`/${prefixAdmin}/product-categories/delete/${category.id}`
-                                 ) Xoá
+                                 ) Delete
                               - else 
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm disabled"
                                     style="cursor: default;" 
-                                 ) Xoá
+                                 ) Delete
 
 
       +pagination-bar(pagination)

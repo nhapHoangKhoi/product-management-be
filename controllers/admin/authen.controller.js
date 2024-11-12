@@ -10,7 +10,7 @@ module.exports.getLoginPage = (request, response) =>
    response.render(
       "admin/pages/authens/login.pug", 
       {
-         pageTitle: "Đăng nhập",
+         pageTitle: "Login",
       }
    );
 }
@@ -29,19 +29,19 @@ module.exports.login = async (request, response) =>
    );
 
    if(!theAccount) {
-      request.flash("error", "Email không tồn tại trong hệ thống!");
+      request.flash("error", "Email not existed in system!");
       response.redirect("back"); // go back to page [GET] /admin/authen/login
       return;
    }
 
    if(md5(inputPassword) != theAccount.password) {
-      request.flash("error", "Email hoặc mật khẩu không đúng!");
+      request.flash("error", "Email or password incorrect!");
       response.redirect("back"); // go back to page [GET] /admin/authen/login
       return;
    }
 
    if(theAccount.status != "active") {
-      request.flash("error", "Tài khoản đang bị khoá!");
+      request.flash("error", "Your account is being locked!");
       response.redirect("back"); // go back to page [GET] /admin/authen/login
       return;
    }

@@ -1,6 +1,6 @@
 const express = require("express");
 const multer  = require('multer');
-const router = express.Router(); // ham Router() de dinh nghia ra cac route con
+const router = express.Router();
 
 const controllerProductAdmin = require("../../controllers/admin/product.controller.js");
 const validate = require("../../validates/admin/product.validate.js");
@@ -40,7 +40,7 @@ router.get("/create", controllerProductAdmin.getCreatePage);
 router.post(
    "/create", 
 
-   // de up anh tu frontend len ung dung backend nodejs
+   // upload image from frontend to backend nodejs
    upload.fields(
       [
          {
@@ -49,7 +49,7 @@ router.post(
          }
       ]
    ), 
-   functionsUploadFileToCloud.uploadFields, // de up anh tu backend nodejs len cloudinary
+   functionsUploadFileToCloud.uploadFields, // upload image from backend nodejs to cloudinary
    validate.createProduct, 
    controllerProductAdmin.createProduct
 );
@@ -69,7 +69,7 @@ router.get("/edit/:idProduct", controllerProductAdmin.getEditPage);
 router.patch(
    "/edit/:idProduct", 
 
-   // de up anh tu frontend len ung dung backend nodejs
+   // upload image from frontend to backend nodejs
    upload.fields(
       [
          {
@@ -78,13 +78,13 @@ router.patch(
          }
       ]
    ), 
-   functionsUploadFileToCloud.uploadFields, // de up anh tu backend nodejs len cloudinary
+   functionsUploadFileToCloud.uploadFields, // upload image from backend nodejs to cloudinary
    validate.createProduct, 
    controllerProductAdmin.editProduct
 );
 // ----- End new
 
-router.get("/trash", controllerProductAdmin.getDeletedProducts); // danh sach san pham da bi xoa
+router.get("/trash", controllerProductAdmin.getDeletedProducts);
 router.patch("/recover/:idProduct", controllerProductAdmin.recoverProduct);
 router.patch("/recover-many", controllerProductAdmin.recoverManyProducts);
 router.delete("/delete-permanent/:idProduct", controllerProductAdmin.permanentDeleteProduct);

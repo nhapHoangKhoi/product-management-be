@@ -21,7 +21,7 @@ block main
          enctype="multipart/form-data"
       )
          div(class="form-group")
-            label(for="title") Tiêu đề <span style="color: red;">*</span>
+            label(for="title") Title <span style="color: red;">*</span>
             input(
                type="text"
                class="form-control"
@@ -32,13 +32,13 @@ block main
             )
 
          div(class="form-group")
-            label(for="product_category_id") Danh mục
+            label(for="product_category_id") Product category
             select(
                name="product_category_id"
                class="form-control"
                id="product_category_id"
             )
-               option(value="") -- Chọn danh mục --
+               option(value="") -- Select category --
                - if(listOfCategories)
                   +select-hierarchy(listOfCategories, 1, theProductData.product_category_id)
 
@@ -51,7 +51,7 @@ block main
                value="yes"
                checked=(theProductData.featured == "yes" ? true : false)
             )
-            label(for="featuredTrue" class="form-check-label") Nổi bật
+            label(for="featuredTrue" class="form-check-label") Highlighted
          
          div(class="form-group form-check form-check-inline")
             input(
@@ -62,10 +62,10 @@ block main
                value="no"
                checked=(theProductData.featured == "no" ? true : false)
             )
-            label(for="featuredFalse" class="form-check-label") Không nổi bật
+            label(for="featuredFalse" class="form-check-label") Not highlighted
 
          div(class="form-group")
-            label(for="desc") Mô tả
+            label(for="desc") Description
             textarea(
                class="form-control"
                id="desc"
@@ -75,7 +75,7 @@ block main
             ) #{theProductData.description}
 
          div(class="form-group")
-            label(for="price") Giá
+            label(for="price") Price
             input(
                type="number"
                class="form-control"
@@ -86,7 +86,7 @@ block main
             )
 
          div(class="form-group")
-            label(for="discount") % Giảm giá
+            label(for="discount") % Sale off
             input(
                type="number"
                class="form-control"
@@ -97,7 +97,7 @@ block main
             )
 
          div(class="form-group")
-            label(for="stock") Số lượng
+            label(for="stock") Stock
             input(
                type="number"
                class="form-control"
@@ -127,7 +127,7 @@ block main
 
          //------------------------------- New (old xem ngay tren day)
          div(class="form-group" upload-image)
-            label(for="file-upload-with-preview-images-preview") Ảnh
+            label(for="file-upload-with-preview-images-preview") Images
             div(class="inner-preview-images")
                div(
                   class="custom-file-container" 
@@ -145,13 +145,13 @@ block main
          //------------------------------- End new (old xem ngay tren day)
 
          div(class="form-group")
-            label(for="position") Vị trí
+            label(for="position") Position
             input(
                type="number"
                class="form-control"
                id="position"
                name="position"
-               placeholder="Tự động tăng"
+               placeholder="Auto increase"
                min="1"
                value=theProductData.position
             )
@@ -165,7 +165,7 @@ block main
                value="active"
                checked=(theProductData.status == "active" ? true : false)
             )
-            label(for="statusActive" class="form-check-label") Hoạt động
+            label(for="statusActive" class="form-check-label") Active
          
          div(class="form-group form-check form-check-inline")
             input(
@@ -176,10 +176,10 @@ block main
                value="inactive"
                checked=(theProductData.status == "inactive" ? true : false)
             )
-            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            label(for="statusInActive" class="form-check-label") Inactive
          
          div(class="form-group")
             button(
                type="submit"
                class="btn btn-primary"
-            ) Cập nhật
+            ) Update

@@ -4,15 +4,15 @@ mixin box-updates(link)
       box-updates=link
    )
       select(class="custom-select")
-         option(value="") Chọn hành động... 
+         option(value="") Select your action... 
          - if(correspondRole.permissions.includes("products_edit")) 
-            option(value="active") Hoạt động  
-            option(value="inactive") Dừng hoạt động
+            option(value="active") Active  
+            option(value="inactive") Inactive
          - if(correspondRole.permissions.includes("products_delete")) 
-            option(value="deleteSoftManyItems") Xoá
+            option(value="deleteSoftManyItems") Delete many
       
       .input-group-append 
          button(
             class="btn btn-outline-primary"
             type="button"
-         ) Cập nhật
+         ) Update

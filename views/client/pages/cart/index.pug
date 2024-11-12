@@ -6,7 +6,7 @@ block main
    .container.my-3
       .row
          .col-12
-            +box-head("Giỏ hàng")
+            +box-head("Cart")
 
       .row
          .col-12
@@ -14,13 +14,13 @@ block main
                table(class="table table-bordered" table-cart)
                   thead
                      tr
-                        th STT
-                        th Ảnh
-                        th Tên
-                        th Giá
-                        th Số lượng
-                        th Tổng tiền
-                        th Hành động
+                        th No.
+                        th Image
+                        th Product Name
+                        th Price
+                        th Quantity
+                        th Total
+                        th Action
 
                   tbody
                         each aProduct, index in cartDetail.products
@@ -57,14 +57,14 @@ block main
                                  a(
                                     href=`/cart/delete/${aProduct.productId}`
                                     class="btn btn-danger"
-                                 ) Xóa
+                                 ) Remove
 
-               h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+               h3(class="text-right") Total: #{cartDetail.totalPrice}$
 
                div(class="text-right mt-3")
-                  a(href="/checkout" class="btn btn-success") TIẾN HÀNH ĐẶT HÀNG
+                  a(href="/checkout" class="btn btn-success") PROCEED TO ORDER
                   
             - else
                tr
-                  td(colspan="7" class="text-center") Chưa có sản phẩm nào trong giỏ hàng.
+                  td(colspan="7" class="text-center") No products in the cart yet.
             

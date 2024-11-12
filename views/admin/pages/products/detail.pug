@@ -11,13 +11,13 @@ block main
       h1(class="mb-4") #{theProductData.title}
 
    if (theProductData.price)
-      div(class="mb-4") Giá: <b>#{theProductData.price}$</b>
+      div(class="mb-4") Price: <b>#{theProductData.price}$</b>
 
    if (theProductData.discountPercentage)
-      div(class="mb-4") Giảm giá: <b>#{theProductData.discountPercentage}%</b>
+      div(class="mb-4") Sale off: <b>#{theProductData.discountPercentage}%</b>
 
    if (theProductData.stock)
-      div(class="mb-4") Còn lại: <b>#{theProductData.stock}</b>
+      div(class="mb-4") Stock: <b>#{theProductData.stock}</b>
 
    if (theProductData.images.length > 0)
       div(class="mb-4")
@@ -29,14 +29,14 @@ block main
 
    if (theProductData.status)
       div(class="mb-4")
-         span Trạng thái:
+         span Status:
          if (theProductData.status === "active")
-            span(class="badge badge-success ml-2") Hoạt động
+            span(class="badge badge-success ml-2") Active
          else
-            span(class="badge badge-danger ml-2") Dừng hoạt động
+            span(class="badge badge-danger ml-2") Inactive
 
    if (theProductData.position)
-      div(class="mb-4") Vị trí: <b>#{theProductData.position}</b>
+      div(class="mb-4") Position: <b>#{theProductData.position}</b>
 
    if (theProductData.description)
       div(class="mb-4") !{theProductData.description}

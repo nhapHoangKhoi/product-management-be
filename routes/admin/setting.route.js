@@ -23,7 +23,7 @@ router.get("/general", controllerAdmin.getGeneralSettingPage);
 router.patch(
    "/general", 
 
-   // de up anh tu frontend len ung dung backend nodejs
+   // upload image from frontend to backend nodejs
    upload.fields(
       [
          {
@@ -32,7 +32,7 @@ router.patch(
          }
       ]
    ), 
-   functionsUploadFileToCloud.uploadFields, // de up anh tu backend nodejs len cloudinary
+   functionsUploadFileToCloud.uploadFields, // upload image from backend nodejs to cloudinary
    // validate.createProduct, 
    controllerAdmin.settingGeneral
 );

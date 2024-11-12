@@ -15,7 +15,7 @@ block main
                   type="submit"
                   class="btn btn-primary mb-3"
                   button-submit=`/${prefixAdmin}/roles/permissions`
-               ) Cập nhật
+               ) Update
 
          table(
             class="table table-hover table-sm"
@@ -23,26 +23,26 @@ block main
          )
             thead
                tr
-                  th Tính năng
+                  th Features
                   each eachRole in records
                      th(
                         class="text-center"
                         role-id=eachRole.id
                      ) #{eachRole.title}
 
-            //- Danh sach san pham
+            //- Product list
             tbody
                - 
                   const listProductPermissions = [
-                     { label: "Xem", name: "products_view" },
-                     { label: "Thêm mới", name: "products_create" },
-                     { label: "Chỉnh sửa", name: "products_edit" },
-                     { label: "Xóa", name: "products_delete" }
+                     { label: "View", name: "products_view" },
+                     { label: "Create", name: "products_create" },
+                     { label: "Edit", name: "products_edit" },
+                     { label: "Delete", name: "products_delete" }
                   ];
 
                tr
                   td(colspan="4")
-                     b Danh sách sản phẩm
+                     b Products list
                
                //- tr
                //-    td Xem
@@ -77,19 +77,19 @@ block main
                                  style="cursor: default;"
                               )
 
-            //- Danh muc san pham
+            //- Product categories list
             tbody 
                - 
                   const listProductCategoryPermissions = [
-                     { label: "Xem", name: "product-categories_view" },
-                     { label: "Thêm mới", name: "product-categories_create" },
-                     { label: "Chỉnh sửa", name: "product-categories_edit" },
-                     { label: "Xóa", name: "product-categories_delete" }
+                     { label: "View", name: "product-categories_view" },
+                     { label: "Create", name: "product-categories_create" },
+                     { label: "Edit", name: "product-categories_edit" },
+                     { label: "Delete", name: "product-categories_delete" }
                   ];
 
                tr
                   td(colspan="4")
-                     b Danh mục sản phẩm
+                     b Product categories list
                
                each permission in listProductCategoryPermissions
                   tr
@@ -114,20 +114,20 @@ block main
                                  style="cursor: default;"
                               )
 
-            //- Nhom quyen
+            //- Roles
             tbody
                - 
                   const listRolePermissions = [
-                     { label: "Xem", name: "roles_view" },
-                     { label: "Thêm mới", name: "roles_create" },
-                     { label: "Chỉnh sửa", name: "roles_edit" },
-                     { label: "Xóa", name: "roles_delete" },
-                     { label: "Phân quyền", name: "roles_permissions" }
+                     { label: "View", name: "roles_view" },
+                     { label: "Create", name: "roles_create" },
+                     { label: "Edit", name: "roles_edit" },
+                     { label: "Delete", name: "roles_delete" },
+                     { label: "Authorize", name: "roles_permissions" }
                   ];
 
                tr
                   td(colspan="4")
-                     b Nhóm quyền
+                     b Roles
 
                each permission in listRolePermissions
                   tr
@@ -152,19 +152,19 @@ block main
                                  style="cursor: default;"
                               )
 
-            //- Tai khoan admin
+            //- Admin accounts
             tbody
                - 
                   const listAccountPermissions = [
-                     { label: "Xem", name: "accounts_view" },
-                     { label: "Thêm mới", name: "accounts_create" },
-                     { label: "Chỉnh sửa", name: "accounts_edit" },
-                     { label: "Xóa", name: "accounts_delete" }
+                     { label: "View", name: "accounts_view" },
+                     { label: "Create", name: "accounts_create" },
+                     { label: "Edit", name: "accounts_edit" },
+                     { label: "Delete", name: "accounts_delete" }
                   ];
 
                tr
                   td(colspan="4")
-                     b Tài khoản admin
+                     b Admin accounts
 
                each permission in listAccountPermissions
                   tr

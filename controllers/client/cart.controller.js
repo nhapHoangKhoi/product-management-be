@@ -54,11 +54,11 @@ module.exports.addToCart = async (request, response) =>
       }
    
       // response.send("OK Frontend");
-      request.flash("success", "Thêm vào giỏ hàng thành công!");
+      request.flash("success", "Add to cart successfully!");
       response.redirect("back"); // go back to page [GET] /products/detail/:slug
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/products`);
    }
 }
@@ -108,13 +108,13 @@ module.exports.getCartPage = async (request, response) =>
       response.render(
          "client/pages/cart/index.pug", 
          {
-            pageTitle: "Giỏ hàng",
+            pageTitle: "Cart",
             cartDetail: theCart
          }
       );
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }
@@ -142,7 +142,7 @@ module.exports.deleteOutOfCart = async (request, response) =>
       response.redirect("back"); // go back to page [GET] /cart
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }
@@ -170,7 +170,7 @@ module.exports.updateQuantity_GET = async (request, response) =>
       response.redirect("back"); // go back to page [GET] /cart
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }
@@ -200,7 +200,7 @@ module.exports.updateQuantity = async (request, response) =>
       });
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }

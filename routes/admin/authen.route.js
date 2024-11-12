@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router(); // ham Router() de dinh nghia ra cac route con
+const router = express.Router();
 
 const controllerAdmin = require("../../controllers/admin/authen.controller.js");
 

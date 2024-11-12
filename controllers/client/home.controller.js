@@ -56,7 +56,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "client/pages/home/index.pug", 
       {
-         pageTitle: "Trang chủ",
+         pageTitle: "Home Page",
          productsFeatured: productsFeatured,
          productsNewest: productsNewest
       }

@@ -35,16 +35,16 @@ block main
                //-       a(href=`/products/${theProductData.category.slug}`) #{theProductData.category.title}
 
                - if(theProductData.priceNew)
-                  div(class="inner-price-new") Giá mới: #{theProductData.priceNew}$
+                  div(class="inner-price-new") New price: #{theProductData.priceNew}$
 
                - if(theProductData.price)
-                  div(class="inner-price-old") Giá cũ: #{theProductData.price}$
+                  div(class="inner-price-old") Old price: #{theProductData.price}$
 
                - if(theProductData.discountPercentage)
-                  div(class="inner-percent") Giảm tới <span>#{theProductData.discountPercentage}%</span>
+                  div(class="inner-percent") Sale <span>#{theProductData.discountPercentage}%</span>
 
                - if(theProductData.stock)
-                  div(class="inner-stock") Còn lại <span>#{theProductData.stock}</span> sản phẩm
+                  div(class="inner-stock") Remains <span>#{theProductData.stock}</span> product(s)
 
                form(
                   action=`/cart/add/${theProductData.id}`
@@ -61,13 +61,13 @@ block main
                   button(
                      type="submit"
                      class="btn btn-success btn-block"
-                  ) Thêm vào giỏ hàng
+                  ) Add To Cart
 
       hr
 
       .container.my-5
          .row
             .col-12
-               +box-head("Mô tả sản phẩm")
+               +box-head("Description")
 
                .inner-desc !{theProductData.description}

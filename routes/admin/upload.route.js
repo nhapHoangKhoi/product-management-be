@@ -11,8 +11,8 @@ const upload = multer();
 
 router.post(
    "/",
-   upload.single("file"), // de up anh tu frontend len ung dung backend nodejs
-   functionsUploadFileToCloud.uploadSingleFile, // de up anh tu backend nodejs len cloudinary 
+   upload.single("file"), // upload image from frontend to backend nodejs
+   functionsUploadFileToCloud.uploadSingleFile, // upload image from backend nodejs to cloudinary 
    controllerAdmin.uploadMCEImageToCloud
 );
 

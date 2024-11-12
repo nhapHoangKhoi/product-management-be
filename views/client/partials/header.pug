@@ -15,7 +15,7 @@ header.header
                div(class="form-group d-flex mb-0")
                   input(
                      type="text"
-                     placeholder="Nhập từ khóa..."
+                     placeholder="Looking for..."
                      class="form-control"
                      autocomplete="off"
                      name="inputKeyword"
@@ -24,7 +24,7 @@ header.header
                   button(
                      type="submit"
                      class="btn btn-primary"
-                  ) Tìm
+                  ) Search
 
             .inner-suggest
                .inner-list
@@ -47,18 +47,18 @@ header.header
          .inner-menu 
             ul 
                li 
-                  a(href="/") Trang chủ
+                  a(href="/") Home
                li(class="sub-menu") 
-                  a(href="/products") Sản phẩm
+                  a(href="/products") Products
 
                   - if(layoutProductCategories)
                      +sub-menu(layoutProductCategories)
                li
-                  a(href="/cart") Giỏ hàng (#{totalProductsInCart})
+                  a(href="/cart") Your cart (#{totalProductsInCart})
 
                - if(theUser)
                   li 
-                     a(href="/user/logout") Đăng xuất
+                     a(href="/user/logout") Logout
                   li
                      a(
                         href="/user/profile"
@@ -66,10 +66,10 @@ header.header
                      ) Hello, #{theUser.fullName}
                - else
                   li
-                     a(href="/user/login") Đăng nhập
+                     a(href="/user/login") Login
 
                   li
-                     a(href="/user/register") Đăng ký
+                     a(href="/user/register") Sign up
                
                li
                   a(href=`/${prefixAdmin}/dashboard` target="blank" style="color: red; font-weight: bold;") ADMIN

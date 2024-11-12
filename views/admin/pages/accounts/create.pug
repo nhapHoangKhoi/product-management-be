@@ -4,7 +4,7 @@ block main
    
    - if(correspondRole.permissions.includes("accounts_create"))
       //- h1(class="mb-4") Trang thêm mới tài khoản admin
-      h1(class="mb-4") Thêm mới tài khoản admin
+      h1(class="mb-4") Create New Admin Account
 
       form(
          action=`/${prefixAdmin}/accounts/create`
@@ -12,7 +12,7 @@ block main
          enctype="multipart/form-data"
       )
          div(class="form-group")
-            label(for="fullName") Họ tên <span style="color: red;">*</span>
+            label(for="fullName") Full name <span style="color: red;">*</span>
             input(
                type="text"
                class="form-control"
@@ -32,7 +32,7 @@ block main
             )
 
          div(class="form-group")
-            label(for="password") Mật khẩu <span style="color: red;">*</span>
+            label(for="password") Password <span style="color: red;">*</span>
             input(
                type="password"
                class="form-control"
@@ -42,7 +42,7 @@ block main
             )
 
          div(class="form-group")
-            label(for="phone") Số điện thoại
+            label(for="phone") Phone number
             input(
                type="text"
                class="form-control"
@@ -90,9 +90,9 @@ block main
          //------------------------------- End new (old xem ngay tren day)
 
          div(class="form-group")
-               label(for="role_id") Phân quyền <span style="color: red;">*</span>
+               label(for="role_id") Role <span style="color: red;">*</span>
                select(name="role_id" id="role_id" class="form-control")
-                  option(disabled) -- Chọn --
+                  option(disabled) -- Select --
                   each aRole in listOfRoles
                      option(value=aRole.id) #{aRole.title}
 
@@ -105,7 +105,7 @@ block main
                value="active"
                checked
             )
-            label(for="statusActive" class="form-check-label") Hoạt động
+            label(for="statusActive" class="form-check-label") Active
          
          div(class="form-group form-check form-check-inline")
             input(
@@ -115,10 +115,10 @@ block main
                name="status"
                value="inactive"
             )
-            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            label(for="statusInActive" class="form-check-label") Inactive
          
          div(class="form-group")
             button(
                type="submit"
                class="btn btn-primary"
-            ) Tạo mới
+            ) Create

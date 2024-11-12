@@ -11,7 +11,7 @@ module.exports.index = async (request, response) =>
       
       const theCart = await CartModel.findOne(
          {
-            _id: cartId // co tim den ID trong database, quang vo try catch
+            _id: cartId // find ID in databse, needs try catch
          }
       );
    
@@ -45,13 +45,13 @@ module.exports.index = async (request, response) =>
       response.render(
          "client/pages/checkout/index.pug",
          {
-            pageTitle: "Đặt hàng",
+            pageTitle: "Checkout",
             cartDetail: theCart
          }
       );
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }
@@ -163,14 +163,14 @@ module.exports.getSuccessPage = async (request, response) =>
       response.render(
          "client/pages/checkout/success.pug",
          {
-            pageTitle: "Đặt hàng thành công",
+            pageTitle: "Order successfully",
             order: order,
             orderTotalPrice: orderTotalPrice
          }
       );
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect("/products");
    }
 }

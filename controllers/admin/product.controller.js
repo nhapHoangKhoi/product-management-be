@@ -26,15 +26,15 @@ module.exports.index = async (request, response) =>
    }
    const filterStatusForFE = [
       {
-         label: "Tất cả",
+         label: "All",
          value: ""
       },
       {
-         label: "Hoạt động",
+         label: "Active",
          value: "active"
       },
       {
-         label: "Dừng hoạt động",
+         label: "Inactive",
          value: "inactive"
       }
    ];
@@ -57,25 +57,25 @@ module.exports.index = async (request, response) =>
       productSortBy[sortKey] = sortValue; // title=desc, price=desc,...
    }
    else {
-      productSortBy.position = "desc"; // mac dinh neu ko co yeu cau sort khac
+      productSortBy.position = "desc"; // default if no other sort request
    }
    // ----- End sort ----- //
 
 
-   // ----- Search products (co ban) ----- //
+   // ----- Search products ----- //
    // let keyword = "";
    // if(request.query.inputKeyword) {
    //    const regex = new RegExp(request.query.inputKeyword, "i");
    //    productFind.title = regex;
    //    keyword = request.query.inputKeyword;
    // }
-   // ----- End search products (co ban) ----- //
+   // ----- End search products ----- //
 
 
-   // ----- Search products (nang cao) ----- //
+   // ----- Search products ----- //
    let keyword = request.query.inputKeyword || "";
    if(keyword) {
-      let keywordSlug = keyword.trim(); // bo cac khoang trang o 2 dau
+      let keywordSlug = keyword.trim(); // remvove white-spaces at 2 ends
       keywordSlug = keywordSlug.replace(/\s/g, "-");
       keywordSlug = keywordSlug.replace(/-+/g, "-");
       
@@ -91,7 +91,7 @@ module.exports.index = async (request, response) =>
          { slug: regexKeywordSlug }
       ];
    }
-   // ----- End search products (nang cao) ----- //
+   // ----- End search products ----- //
 
 
    // ----- Pagination ----- //
@@ -148,7 +148,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "admin/pages/products/index.pug", 
       {
-         pageTitle: "Quản lý sản phẩm",
+         pageTitle: "Product Management",
          listOfProducts: listOfProducts,
          keyword: keyword,
          filterStatusForFE: filterStatusForFE,
@@ -165,12 +165,12 @@ module.exports.getSuggestions = async (request, response) =>
       status: "active"
    };
 
-   // ----- Search products (nang cao) ----- //
+   // ----- Search products ----- //
    let keyword = request.query.keyword || "";
    let listOfProducts = [];
 
    if(keyword) {
-      let keywordSlug = keyword.trim(); // bo cac khoang trang o 2 dau
+      let keywordSlug = keyword.trim(); // remvove white-spaces at 2 ends
       keywordSlug = keywordSlug.replace(/\s/g, "-");
       keywordSlug = keywordSlug.replace(/-+/g, "-");
       
@@ -188,7 +188,7 @@ module.exports.getSuggestions = async (request, response) =>
 
       listOfProducts = await ProductModel.find(productFind);
    }
-   // ----- End search products (nang cao) ----- //
+   // ----- End search products ----- //
 
    
    // ----- Code api, needs to be cared of what data be returned ----- //
@@ -227,12 +227,12 @@ module.exports.getDetailPage = async (request, response) =>
    
       const theProductData = await ProductModel.findOne(productFind); 
 
-      if(theProductData) // check != null, vi co render ra giao dien nen them if else cho nay nua
+      if(theProductData) // check != null, because rendering out the interface, so add these if else
       {
          response.render(
             "admin/pages/products/detail.pug",
             {
-               pageTitle: "Chi tiết sản phẩm",
+               pageTitle: "Product detail",
                theProductData: theProductData
             }
          );
@@ -243,9 +243,9 @@ module.exports.getDetailPage = async (request, response) =>
       }
    }
    catch(error) {
-      // catch la do nguoi ta hack, pha
+      // catch: hack
       // console.log(error)
-      request.flash("error", "ID sản phẩm không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/${systemConfigs.prefixAdmin}/products`);
    }
 }
@@ -258,8 +258,8 @@ module.exports.changeStatus = async (request, response) =>
       try {
          const { idProduct, statusChange } = request.params; // { statusChange: '...', idProduct: '...' }
          
-         // cap nhat data trong database
-         // day la cua mongoose, ko lien quan gi toi phuong thuc GET, PATCH,...
+         // update data in the database
+         // mongoose, not related anything to GET, PATCH,...
          await ProductModel.updateOne(
             {
                _id: idProduct
@@ -270,7 +270,7 @@ module.exports.changeStatus = async (request, response) =>
             }
          );
       
-         request.flash("success", "Cập nhật trạng thái thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Update status successfully!"); // just key name "success"
    
          response.json(
             {
@@ -283,7 +283,7 @@ module.exports.changeStatus = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -315,7 +315,7 @@ module.exports.changeMulti = async (request, response) =>
                      updatedBy: response.locals.accountAdmin.id
                   }
                );
-               request.flash("success", "Cập nhật sản phẩm thành công!"); // chi la dat ten key "success"
+               request.flash("success", "Update successfully!");
             }
             break;
    
@@ -330,7 +330,7 @@ module.exports.changeMulti = async (request, response) =>
                      deletedBy: response.locals.accountAdmin.id
                   }
                );
-               request.flash("success", "Xoá sản phẩm thành công!"); // chi la dat ten key "success"
+               request.flash("success", "Delete successfully!");
             }
             break;
          
@@ -345,7 +345,7 @@ module.exports.changeMulti = async (request, response) =>
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -367,7 +367,7 @@ module.exports.softDeleteProduct = async (request, response) =>
             }
          );
       
-         request.flash("success", "Xoá sản phẩm thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Delete product successfully!"); // chi la dat ten key "success"
       
          response.json(
             {
@@ -414,7 +414,7 @@ module.exports.changeProductPosition = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -437,7 +437,7 @@ module.exports.getCreatePage = async (request, response) =>
    response.render(
       "admin/pages/products/create.pug",
       {
-         pageTitle: "Thêm mới sản phẩm",
+         pageTitle: "Create New Product",
          listOfCategories: hierarchyCategories
       }
    );
@@ -457,10 +457,10 @@ module.exports.createProduct = async (request, response) =>
          request.body.position = parseInt(request.body.position);
       }
       else {
-         // --- Cach 1 (ko su dung nua)
+         // --- Cach 1 (not use anymore)
          // const numberOfProducts = await ProductModel.countDocuments({});
          // request.body.position = numberOfProducts + 1;
-         // --- End cach lam 1 (ko su dung nua)
+         // --- End cach lam 1 (not use anymore)
 
          // --- Cach lam 2
          const productWithMaxPosition = await ProductModel
@@ -484,11 +484,11 @@ module.exports.createProduct = async (request, response) =>
       const newProductModel = new ProductModel(request.body);
       await newProductModel.save();
    
-      request.flash("success", "Thêm mới sản phẩm thành công!");
+      request.flash("success", "Create new product successfully!");
       response.redirect(`/${systemConfigs.prefixAdmin}/products`);
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -508,7 +508,7 @@ module.exports.getEditPage = async (request, response) =>
    
       const theProductData = await ProductModel.findOne(productFind); 
 
-      if(theProductData) // check != null, vi co render ra giao dien nen them if else cho nay nua
+      if(theProductData) // check != null, because rendering out the interface, so add these if else
       {
          // ----- Hierarchy dropdown ----- //
          const allCategoriesFind = {
@@ -521,7 +521,7 @@ module.exports.getEditPage = async (request, response) =>
          response.render(
             "admin/pages/products/edit.pug",
             {
-               pageTitle: "Chỉnh sửa sản phẩm",
+               pageTitle: "Edit Product",
                theProductData: theProductData,
                listOfCategories: hierarchyCategories
             }
@@ -533,9 +533,9 @@ module.exports.getEditPage = async (request, response) =>
       }
    }
    catch(error) {
-      // catch la do nguoi ta hack, pha
+      // catch: hack
       // console.log(error)
-      request.flash("error", "ID sản phẩm không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/${systemConfigs.prefixAdmin}/products`);
    }
 }
@@ -578,17 +578,17 @@ module.exports.editProduct = async (request, response) =>
             request.body
          );
       
-         request.flash("success", "Cập nhật sản phẩm thành công!");
+         request.flash("success", "Edit product successfully!");
       }
       catch(error) {
-         request.flash("error", "ID sản phẩm không hợp lệ!");
+         request.flash("error", "ID not valid!");
       }
    
       // response.send("OK Frontend");
-      response.redirect("back"); // tuc la quay ve lai trang [GET] /admin/products/edit
+      response.redirect("back"); // go back to [GET] /admin/products/edit
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -661,7 +661,7 @@ module.exports.recoverProduct = async (request, response) =>
             }
          );
       
-         request.flash("success", "Khôi phục sản phẩm thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover succesfully!"); // key name "success"
       
          response.json(
             {
@@ -674,7 +674,7 @@ module.exports.recoverProduct = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -696,7 +696,7 @@ module.exports.recoverManyProducts = async (request, response) =>
             }
          );
 
-         request.flash("success", "Khôi phục sản phẩm thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover successfully!"); // key name "success"
 
          response.json(
             {
@@ -707,7 +707,7 @@ module.exports.recoverManyProducts = async (request, response) =>
    
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -736,7 +736,7 @@ module.exports.permanentDeleteProduct = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission 
    }
 }
 
@@ -762,7 +762,7 @@ module.exports.permanentDeleteManyProducts = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //

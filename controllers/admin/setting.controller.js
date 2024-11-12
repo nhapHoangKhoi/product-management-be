@@ -9,7 +9,7 @@ module.exports.getGeneralSettingPage = async (request, response) =>
    response.render(
       "admin/pages/settings/general.pug", 
       {
-         pageTitle: "Cài đặt chung",
+         pageTitle: "General Settings",
          settingsGeneral: settingsGeneral
       }
    );
@@ -38,7 +38,7 @@ module.exports.settingGeneral = async (request, response) =>
       await newSettingModel.save();
    }
 
-   request.flash("success", "Cập nhật thành công!");
+   request.flash("success", "Update successfully!");
    response.redirect("back"); // go back to page [GET] /admin/settings/general
 }
 // ----------------End []------------------- //

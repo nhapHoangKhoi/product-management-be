@@ -11,7 +11,7 @@ const uploadRoute = require("./upload.route.js");
 
 const authenMiddleware = require("../../middlewares/admin/authen.middleware.js");
 
-// tao route
+// create routes
 module.exports.index = (app) =>
 {
    const path = `/${systemConfigs.prefixAdmin}`;

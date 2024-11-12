@@ -21,7 +21,7 @@ block main
          enctype="multipart/form-data"
       )
          div(class="form-group")
-            label(for="title") Tiêu đề <span style="color: red;">*</span>
+            label(for="title") Title <span style="color: red;">*</span>
             input(
                class="form-control"
                name="title"
@@ -32,18 +32,18 @@ block main
             )
 
          div(class="form-group")
-            label(for="parent_id") Danh mục cha
+            label(for="parent_id") Parent category
             select(
                name="parent_id"
                class="form-control"
                id="parent_id"
             )
-               option(value="") -- Chọn danh mục cha --
+               option(value="") -- Select parent category --
                - if(listOfCategories)
                   +select-hierarchy(listOfCategories, 1, theCategoryData.parent_id)
 
          div(class="form-group")
-            label(for="desc") Mô tả
+            label(for="desc") Description
             textarea(
                class="form-control"
                name="description"
@@ -54,13 +54,13 @@ block main
             ) !{theCategoryData.description}
 
          div(class="form-group")
-            label(for="position") Vị trí
+            label(for="position") Position
             input(
                type="number"
                class="form-control"
                name="position"
                id="position"
-               placeholder="Tự động tăng"
+               placeholder="Auto increase"
                min="1"
                value=theCategoryData.position
             )
@@ -74,7 +74,7 @@ block main
                value="active"
                checked=(theCategoryData.status == "active" ? true : false)
             )
-            label(for="statusActive" class="form-check-label") Hoạt động
+            label(for="statusActive" class="form-check-label") Active
          
          div(class="form-group form-check form-check-inline")
             input(
@@ -85,10 +85,10 @@ block main
                value="inactive"
                checked=(theCategoryData.status == "inactive" ? true : false)
             )
-            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            label(for="statusInActive" class="form-check-label") Inactive
          
          div(class="form-group")
             button(
                type="submit"
                class="btn btn-primary"
-            ) Cập nhật
+            ) Update

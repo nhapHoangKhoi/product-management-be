@@ -5,7 +5,7 @@ block main
    script
       | const theImagesJs = !{JSON.stringify(settingsGeneral.logo)};
 
-   h1(class="mb-4") Cài đặt chung
+   h1(class="mb-4") General Settings
 
    form(
       action=`/${prefixAdmin}/settings/general?_method=PATCH`
@@ -13,7 +13,7 @@ block main
       enctype="multipart/form-data"
    )
       div(class="form-group")
-         label(for="websiteName") Tên website
+         label(for="websiteName") Website name
          input(
             type="text"
             class="form-control"
@@ -63,7 +63,7 @@ block main
       //------------------------------- End new (old xem ngay tren day)
 
       div(class="form-group")
-         label(for="phone") Số điện thoại
+         label(for="phone") Phone
          input(
             type="text"
             class="form-control"
@@ -83,7 +83,7 @@ block main
          )
 
       div(class="form-group")
-         label(for="address") Địa chỉ
+         label(for="address") Location
          input(
             type="text"
             class="form-control"
@@ -106,4 +106,4 @@ block main
          button(
             type="submit"
             class="btn btn-primary"
-         ) Cập nhật
+         ) Update

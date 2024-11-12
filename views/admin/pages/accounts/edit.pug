@@ -7,7 +7,7 @@ block main
          | const theImagesJs = !{JSON.stringify(theAccountData.avatar)};
 
       //- h1(class="mb-4") Trang chỉnh sửa tài khoản admin
-      h1(class="mb-4") Chỉnh sửa tài khoản admin
+      h1(class="mb-4") Edit Admin Account
 
       form(
          action=`/${prefixAdmin}/accounts/edit/${theAccountData.id}?_method=PATCH`
@@ -15,7 +15,7 @@ block main
          enctype="multipart/form-data"
       )
          div(class="form-group")
-            label(for="fullName") Họ tên <span style="color: red;">*</span>
+            label(for="fullName") Full name <span style="color: red;">*</span>
             input(
                type="text"
                class="form-control"
@@ -37,7 +37,7 @@ block main
             )
 
          div(class="form-group")
-            label(for="phone") Số điện thoại
+            label(for="phone") Phone number
             input(
                type="text"
                class="form-control"
@@ -87,9 +87,9 @@ block main
          //------------------------------- End new (old xem ngay tren day)
 
          div(class="form-group")
-               label(for="role_id") Phân quyền <span style="color: red;">*</span>
+               label(for="role_id") Role <span style="color: red;">*</span>
                select(name="role_id" id="role_id" class="form-control")
-                  option(disabled) -- Chọn --
+                  option(disabled) -- Select --
                   each aRole in listOfRoles
                      option(
                         value=aRole.id
@@ -105,7 +105,7 @@ block main
                value="active"
                checked=(theAccountData.status == "active" ? true : false)
             )
-            label(for="statusActive" class="form-check-label") Hoạt động
+            label(for="statusActive" class="form-check-label") Active
          
          div(class="form-group form-check form-check-inline")
             input(
@@ -116,10 +116,10 @@ block main
                value="inactive"
                checked=(theAccountData.status == "inactive" ? true : false)
             )
-            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            label(for="statusInActive" class="form-check-label") Inactive
          
          div(class="form-group")
             button(
                type="submit"
                class="btn btn-primary"
-            ) Cập nhật
+            ) Update

@@ -4,7 +4,7 @@ block main
    .container.my-5
       .row.justify-content-center
          .col-8
-            h1(class="text-center") Đăng nhập
+            h1(class="text-center") Login
 
             form(
                action=`/${prefixAdmin}/authen/login`
@@ -23,7 +23,7 @@ block main
                   )
 
                div(class="form-group")
-                  label(for="password") Mật khẩu <span style="color: red;">*</span>
+                  label(for="password") Password <span style="color: red;">*</span>
                   input(
                      type="password"
                      class="form-control"
@@ -38,4 +38,4 @@ block main
                   button(
                      type="submit"
                      class="btn btn-primary btn-block"
-                  ) Đăng nhập
+                  ) Sign in

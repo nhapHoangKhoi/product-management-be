@@ -2,29 +2,29 @@ extends ../../layouts/default.pug
 
 block main
    
-   h1(class="mb-4") Thông tin cá nhân
+   h1(class="mb-4") Profile
    
    if (accountAdmin.avatar)
       img(src=accountAdmin.avatar[0] width="150px" class="mb-3")
    
    if (accountAdmin.fullName)
-      p Họ tên: <b>#{accountAdmin.fullName}</b>
+      p Full name: <b>#{accountAdmin.fullName}</b>
    
    if (accountAdmin.email)
       p Email: <b>#{accountAdmin.email}</b>
    
    if (accountAdmin.phone)
-      p Số điện thoại: <b>#{accountAdmin.phone}</b>
+      p Phone number: <b>#{accountAdmin.phone}</b>
    
    p 
-      span Trạng thái: 
+      span Status: 
       - if (accountAdmin.status == "active")
-         span(class="badge badge-success ml-2") Hoạt động
+         span(class="badge badge-success ml-2") Active
       - else
-         span(class="badge badge-danger ml-2") Dừng hoạt động
+         span(class="badge badge-danger ml-2") Inactive
    
    - if (correspondRole.title)
-      p Phân quyền: <b>#{correspondRole.title}</b>
+      p Role: <b>#{correspondRole.title}</b>
 
 
    //- a(

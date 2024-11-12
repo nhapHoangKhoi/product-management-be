@@ -6,12 +6,16 @@ block main
       //- h1(class="mb-4") Trang Nhóm quyền
 
       h1(class="main-header mb-4")
-         div(class="inner-title") Nhóm quyền
+         div(class="inner-title") Roles
 
          - if(correspondRole.permissions.includes("roles_delete"))
+            //- button(
+            //-    class="btn btn-primary" 
+            //-    button-trash=`/${prefixAdmin}/roles/trash`
+            //- ) Recently deleted
             button(
-               class="btn btn-primary" 
-               button-trash=`/${prefixAdmin}/roles/trash`
+               class="btn btn-primary disabled"
+               style="cursor: default;" 
             ) Recently deleted
          - else
             button(
@@ -20,28 +24,32 @@ block main
             ) Recently deleted
 
       .card.mb-3
-         .card-header Danh sách 
+         .card-header List
          .card-body 
             .row.align-items-center.mb-4
                .col-8
                   - if(correspondRole.permissions.includes("roles_delete"))
+                     //- button(
+                     //-    class="btn btn-secondary btn-sm element-hidden"
+                     //-    button-delete-many-soft=`/${prefixAdmin}/roles/change-multi`
+                     //-    value="deleteSoftManyItems"
+                     //- ) Delete
                      button(
-                        class="btn btn-secondary btn-sm element-hidden"
-                        button-delete-many-soft=`/${prefixAdmin}/roles/change-multi`
-                        value="deleteSoftManyItems"
-                     ) Xoá
+                        class="btn btn-secondary btn-sm disabled element-hidden"
+                        style="cursor: default;" 
+                     ) Delete
                      
                .col-4.text-right 
                   - if(correspondRole.permissions.includes("roles_create"))
                      a(
                         href=`/${prefixAdmin}/roles/create`
                         class="btn btn-outline-info"
-                     ) + Thêm mới
+                     ) + Create new role
                   - else 
                      button(
                         class="btn btn-secondary disabled"
                         style="cursor: default;"
-                     ) + Thêm mới
+                     ) + Create new role
 
 
             table(
@@ -53,10 +61,10 @@ block main
                         th 
                            label(for="checkALL-box")
                               input(name="checkAll" id="checkALL-box" type="checkbox")
-                     th STT
-                     th Nhóm quyền
-                     th Mô tả ngắn
-                     th Hành động
+                     th No.
+                     th Role Name
+                     th Short description
+                     th Actions
                tbody
                   if(listOfRoles.length > 0)
                      each aRole, index in listOfRoles
@@ -81,29 +89,33 @@ block main
                                  a(
                                     class="btn btn-secondary btn-sm"
                                     href=`/${prefixAdmin}/roles/detail/${aRole.id}`
-                                 ) Chi tiết
+                                 ) Detail
 
                                  - if(correspondRole.permissions.includes("roles_edit"))
                                     a(
                                        class="btn btn-warning btn-sm"
                                        href=`/${prefixAdmin}/roles/edit/${aRole.id}`
-                                    ) Sửa
+                                    ) Edit
                                  - else
                                     button(
                                        class="btn btn-warning btn-sm disabled"
                                        style="cursor: default;"
-                                    ) Sửa
+                                    ) Edit
                                  
                                  - if(correspondRole.permissions.includes("roles_delete"))
+                                    //- button(
+                                    //-    class="btn btn-danger btn-sm"
+                                    //-    button-delete-soft=`/${prefixAdmin}/roles/delete/${aRole.id}`
+                                    //- ) Delete
                                     button(
-                                       class="btn btn-danger btn-sm"
-                                       button-delete-soft=`/${prefixAdmin}/roles/delete/${aRole.id}`
-                                    ) Xóa
+                                       class="btn btn-danger btn-sm disabled"
+                                       style="cursor: default;"
+                                    ) Delete
                                  - else
                                     button(
                                        class="btn btn-danger btn-sm disabled"
                                        style="cursor: default;"
-                                    ) Xóa
+                                    ) Delete
                   else
                      tr
-                        td(colspan="5" class="text-center") Chưa có nhóm quyền nào được tạo.
+                        td(colspan="5" class="text-center") No roles have been created yet.

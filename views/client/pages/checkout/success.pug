@@ -12,40 +12,40 @@ block main
          .col-12
             div(class="alert alert-success")
                span(class="inner-icon mr-2" style="color: rgb(1, 173, 1);") <i class="fa-regular fa-circle-check"></i>
-               | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất.
+               | You ordered succeed. Your order will be processed as soon as possible
       
       - if(order)
          .row
             .col-12
-               h4(class="mb-2") Thông tin cá nhân
+               h4(class="mb-2") Recipient Information
                
                table(class="table table-bordered")
                   tbody
                      tr
-                        td Họ tên
+                        td Full name
                         td
                            b #{order.customerInfo.fullName}
                      tr
-                        td Số điện thoại
+                        td Phone number
                         td
                            b #{order.customerInfo.phone}
                      tr
-                        td Địa chỉ
+                        td Address
                         td
                            b #{order.customerInfo.address}
          .row
             .col-12
-               h4(class="mb-2") Thông tin đơn hàng
+               h4(class="mb-2") Order Information
                
                table(class="table table-bordered")
                   thead
                      tr
-                        th STT
-                        th Ảnh
-                        th Tên
-                        th Giá
-                        th Số lượng
-                        th Tổng tiền
+                        th No.
+                        th Image
+                        th Product Name
+                        th Price
+                        th Quantity
+                        th Total
                   tbody
                      - if(order.products.length > 0)
                         each item, index in order.products
@@ -63,4 +63,4 @@ block main
                            td #{item.totalPrice}$
 
                - if(order.products.length > 0)
-                  h3(class="text-right") Tổng đơn hàng: #{orderTotalPrice}$
+                  h3(class="text-right") Total Price: #{orderTotalPrice}$

@@ -6,7 +6,7 @@ block main
       //- h1(class="mb-4") Trang danh sách tài khoản
 
       h1(class="main-header mb-4")
-         div(class="inner-title") Danh sách tài khoản admin
+         div(class="inner-title") Admin Accounts
 
          //- - if(correspondRole.permissions.includes("accounts_delete"))
          //-    button(
@@ -20,7 +20,7 @@ block main
          //-    ) Recently deleted
 
       .card.mb-3
-         .card-header Danh sách 
+         .card-header List
          .card-body 
             .row.align-items-center.mb-4
                .col-8 
@@ -29,22 +29,22 @@ block main
                      //-    class="btn btn-secondary btn-sm element-hidden"
                      //-    button-delete-many-permanent=`/${prefixAdmin}/accounts/delete-many-permanent`
                      //-    value="deletePermanentManyItems"
-                     //- ) Xoá vĩnh viễn
+                     //- ) Delete permanently
                      button(
                         class="btn btn-secondary btn-sm element-hidden disabled"
-                     ) Xoá vĩnh viễn
+                     ) Delete permanently
 
                .col-4.text-right
                   - if(correspondRole.permissions.includes("accounts_create"))
                      a(
                         href=`/${prefixAdmin}/accounts/create`
                         class="btn btn-outline-info"
-                     ) + Thêm mới
+                     ) + Create new admin account
                   - else
                      button(
                         class="btn btn-secondary disabled"
                         style="cursor: default;"
-                     ) + Thêm mới
+                     ) + Create new admin account
 
 
             table.table.table-hover.table-sm
@@ -54,13 +54,13 @@ block main
                         th 
                            label(for="checkALL-box")
                               input(name="checkAll" id="checkALL-box" type="checkbox")
-                     th STT
-                     th Ảnh đại diện
-                     th Họ tên
-                     th Phân quyền
+                     th No.
+                     th Avatar
+                     th Full Name
+                     th Role Name
                      th Email
-                     th Trạng thái
-                     th Hành động
+                     th Status
+                     th Actions
                
                tbody
                   each anAccount, index in listOfAccounts
@@ -100,27 +100,27 @@ block main
                                     link=`/${prefixAdmin}/accounts/change-status/${anAccount.status}/${anAccount.id}`  
                                     class="btn badge badge-success" 
                                     button-change-status=""
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     link=`/${prefixAdmin}/accounts/change-status/${anAccount.status}/${anAccount.id}` 
                                     class="btn badge badge-danger"
                                     button-change-status=""
-                                 ) Dừng hoạt động 
+                                 ) Inactive 
                            - else 
                               - if(anAccount.status == "active")
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-success disabled"
                                     style="cursor: default;" 
-                                 ) Hoạt động
+                                 ) Active
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn badge badge-danger disabled"
                                     style="cursor: default;"
-                                 ) Dừng hoạt động 
+                                 ) Inactive
 
                         td(onclick=`location.href='/${prefixAdmin}/accounts/detail/${anAccount.id}'`, style="cursor: pointer;")
                            div(class="buttons")
@@ -129,28 +129,28 @@ block main
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm"
                                     href=`/${prefixAdmin}/accounts/edit/${anAccount.id}`
-                                 ) Sửa
+                                 ) Edit
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-warning btn-sm disabled"
                                     style="cursor: default;"
-                                 ) Sửa
+                                 ) Edit
                               
                               - if(correspondRole.permissions.includes("accounts_delete"))
                                  //- button(
                                  //-    onclick=`event.stopPropagation();`
                                  //-    class="btn btn-danger btn-sm" 
                                  //-    button-delete-permanent=`/${prefixAdmin}/accounts/delete-permanent/${anAccount.id}`
-                                 //- ) Xoá vĩnh viễn
+                                 //- ) Delete permanently
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm disabled" 
-                                 ) Xoá vĩnh viễn
+                                 ) Delete permanently
                               - else
                                  button(
                                     onclick=`event.stopPropagation();`
                                     class="btn btn-danger btn-sm disabled"
                                     style="cursor: default;" 
-                                 ) Xoá vĩnh viễn
+                                 ) Delete permanently
 

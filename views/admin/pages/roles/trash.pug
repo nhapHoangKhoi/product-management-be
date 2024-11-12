@@ -12,22 +12,22 @@ block main
 
       //- h1 Trang các nhóm quyền đã xóa
 
-      h1 Nhóm quyền đã xoá
+      h1 Recently Deleted
 
       .card.mb-3 
-      .card-header Danh sách
+      .card-header List
       .card-body
          button(
             class="btn btn-secondary btn-sm mb-3 element-hidden"
             button-recover-many=`/${prefixAdmin}/roles/recover-many`
             value="recoverManyItems"
-         ) Khôi phục
+         ) Recover
          
          button(
             class="btn btn-secondary btn-sm mb-3 ml-3 element-hidden"
             button-delete-many-permanent=`/${prefixAdmin}/roles/delete-many-permanent`
             value="deletePermanentManyItems"
-         ) Xoá vĩnh viễn
+         ) Delete permanently
 
          table.table.table-hover.table-sm
             thead
@@ -35,10 +35,10 @@ block main
                   th
                      label(for="checkALL-box")
                         input(name="checkAll" id="checkALL-box" type="checkbox")
-                  th(class="pl-0") STT
-                  th Nhóm quyền
-                  th Mô tả ngắn
-                  th Hành động
+                  th(class="pl-0") No.
+                  th Role Name
+                  th Short Description
+                  th Actions
 
             tbody
                each aRole, index in listOfDeletedRoles
@@ -59,11 +59,11 @@ block main
                         button(
                            class="btn btn-primary btn-sm"
                            button-recover=`/${prefixAdmin}/roles/recover/${aRole.id}`
-                        ) Khôi phục
+                        ) Recover
                         button(
                            class="btn btn-danger btn-sm ml-1" 
                            button-delete-permanent=`/${prefixAdmin}/roles/delete-permanent/${aRole.id}`
-                        ) Xoá vĩnh viễn
+                        ) Delete permanently
 
 
       +pagination-bar(pagination)

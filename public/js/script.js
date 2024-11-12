@@ -139,15 +139,15 @@ if(listInputQuantity.length > 0)
             const productId = eachInput.getAttribute("product-id");
             const quantity = parseInt(eachInput.value);
 
-            // --- Dung phuong thuc GET --- //
+            // --- Use method GET --- //
             // if(productId && quantity > 0)
             // {
             //    window.location.href = `/cart/update/${productId}/${quantity}`;
             // }
-            // --- End dung phuong thuc GET --- //
+            // --- End use method GET --- //
 
 
-            // --- Dung phuong thuc PATCH --- //
+            // --- Use method PATCH --- //
             const link = `/cart/update/${productId}/${quantity}`;
             
             fetch(link, {
@@ -159,7 +159,7 @@ if(listInputQuantity.length > 0)
                      window.location.reload();
                   }
                })
-            // --- End dung phuong thuc PATCH --- //
+            // --- End use method PATCH --- //
          }
       );
    })
@@ -181,8 +181,8 @@ if(boxSearch)
    {
       const keyword = inputSearch.value;
 
-      // chu y : phai co "/"" roi moi them search
-      // de luon luon duoc localhost:3000/search/suggest?inputKeyword=...
+      // notice : need to have "/" then add "search"
+      // to always get localhost:3000/search/suggest?inputKeyword=...
       fetch(`/search/suggest?inputKeyword=${keyword}`)
          .then(responseFromController => responseFromController.json())
          .then(dataFromController => {

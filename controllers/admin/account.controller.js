@@ -28,13 +28,13 @@ module.exports.index = async (request, response) =>
       response.render(
          "admin/pages/accounts/index.pug", 
          {
-            pageTitle: "Tài khoản admin",
+            pageTitle: "Admin Accounts",
             listOfAccounts: listOfAccounts
          }
       );
    }
    catch(error) {
-      request.flash("error", "ID không hợp lệ!");
+      request.flash("error", "ID not valid!");
    }
 }
 
@@ -46,8 +46,8 @@ module.exports.changeStatus = async (request, response) =>
       try {
          const { idAccountAmdin, statusChange } = request.params; // { statusChange: '...', idAccountAmdin: '...' }
          
-         // cap nhat data trong database
-         // day la cua mongoose, ko lien quan gi toi phuong thuc GET, PATCH,...
+         // update data in the database
+         // mongoose, not related anything to GET, PATCH,...
          await AccountModel.updateOne(
             {
                _id: idAccountAmdin
@@ -58,7 +58,7 @@ module.exports.changeStatus = async (request, response) =>
             }
          );
       
-         request.flash("success", "Cập nhật trạng thái thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Update status successfully!"); // key named "success"
    
          response.json(
             {
@@ -71,7 +71,7 @@ module.exports.changeStatus = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //
@@ -87,12 +87,12 @@ module.exports.getCreatePage = async (request, response) =>
 
    const listOfRoles = await RoleModel
       .find(roleFind)
-      .select(["title"]); // tra ra id (luon luon), truong title
+      .select(["title"]); // return id (always), field title
 
    response.render(
       "admin/pages/accounts/create.pug", 
       {
-         pageTitle: "Tạo tài khoản admin",
+         pageTitle: "Create New Admin Account",
          listOfRoles: listOfRoles
       }
    );
@@ -115,7 +115,7 @@ module.exports.createAccountAdmin = async (request, response) =>
       const newAccountModel = new AccountModel(request.body);
       await newAccountModel.save();
    
-      request.flash("success", "Tạo tài khoản mới thành công!");
+      request.flash("success", "Create new admin account successfully!");
       response.redirect(`/${systemConfigs.prefixAdmin}/accounts`);
       // response.send("OK Frontend");
    }
@@ -142,16 +142,16 @@ module.exports.getEditPage = async (request, response) =>
    
       const listOfRoles = await RoleModel
          .find(roleFind)
-         .select(["title"]); // tra ra id (luon luon), truong title
+         .select(["title"]); // return id (always), field title
       
       const theAccountData = await AccountModel.findOne(accountFind);
    
-      if(theAccountData) // check != null, vi co render ra giao dien nen them if else cho nay nua
+      if(theAccountData) // check != null, because rendering out the interface, so add these if else
       {
          response.render(
             "admin/pages/accounts/edit.pug",
             {
-               pageTitle: "Chỉnh sửa tài khoản admin",
+               pageTitle: "Edit Admin Account",
                listOfRoles: listOfRoles,
                theAccountData: theAccountData
             }
@@ -162,9 +162,9 @@ module.exports.getEditPage = async (request, response) =>
       }
    }
    catch(error) {
-      // catch la do nguoi ta hack, pha
+      // catch: hack
       // console.log(error);
-      request.flash("error", "ID tài khoản không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/${systemConfigs.prefixAdmin}/roles`);
    }
 }
@@ -189,15 +189,15 @@ module.exports.editAccountAdmin = async (request, response) =>
             request.body
          );
       
-         request.flash("success", "Cập nhật thành công!");
+         request.flash("success", "Update successfully!");
       }
       catch(error) {
-         request.flash("error", "ID tài khoản không hợp lệ!");
+         request.flash("error", "ID not valid!");
       }
    
       // console.log(request.body);
       // response.send("OK Frontend");
-      response.redirect("back"); // tuc la quay ve lai trang [GET] /admin/products/edit
+      response.redirect("back"); // back to page [GET] /admin/products/edit
    }
    else {
       response.send("403");
@@ -232,7 +232,7 @@ module.exports.permanentDeleteAdmin = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -258,7 +258,7 @@ module.exports.permanentDeleteManyAdmins = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ----------------End []------------------- //

@@ -186,7 +186,7 @@ if(boxUpdate)
          else {
             // alert("Hành động và item phải được chọn!");
 
-            // ----- Notification chi ben FE -----/
+            // ----- Notification for only FE -----/
             const notificationFEError = document.querySelector(".alert-danger[show-notification-fe]");
 
             if(notificationFEError)
@@ -195,14 +195,14 @@ if(boxUpdate)
                timeExpiredNotification = parseInt(timeExpiredNotification);
 
                const notificationContent = notificationFEError.querySelector(".inner-content");
-               notificationContent.innerText = "Hành động và item phải được chọn!";
+               notificationContent.innerText = "At least 1 action and item must be selected!";
                notificationFEError.classList.remove("element-hidden");
                
                fadeInFE(notificationFEError);
 
                fadeOutFE(notificationFEError, timeExpiredNotification);
             }
-            // ----- End notification chi ben FE -----/
+            // ----- End notification for only FE -----/
          }
       }
    );
@@ -291,14 +291,14 @@ if(listButtonDeletePermanent.length > 0)
       eachButton.addEventListener("click", () => 
          {  
             Swal.fire({
-               title: "Bạn có chắc muốn xóa",
-               text: "Hành động này sẽ xóa vĩnh viễn bản ghi",
+               title: "Keep deleting?",
+               text: "This action cannot be undone",
                icon: "warning",
                showCancelButton: true,
                confirmButtonColor: "#d33",
                cancelButtonColor: "#3085d6",
-               confirmButtonText: "Vẫn xóa!",
-               cancelButtonText: "Hủy"
+               confirmButtonText: "Delete permanent!",
+               cancelButtonText: "Discard"
             }).then((result) => {
                   if (result.isConfirmed) {
                      const link = eachButton.getAttribute("button-delete-permanent");
@@ -310,8 +310,8 @@ if(listButtonDeletePermanent.length > 0)
                         .then(dataFromController => {
                            if(dataFromController.code == 200) {
                               Swal.fire({
-                                 title: "Đã xóa!",
-                                 text: "Bạn đã xóa thành công",
+                                 title: "Deleted successfully!",
+                                 text: "Your file has been deleted.",
                                  icon: "success",
                               })
                                  .then(noName => window.location.reload())
@@ -349,14 +349,14 @@ if(buttonDeleteManyPermanent)
          if(action != "" && listOfIds.length > 0)
          {
             Swal.fire({
-               title: "Bạn có chắc muốn xóa",
-               text: "Hành động này sẽ xóa vĩnh viễn bản ghi",
+               title: "Keep deleting?",
+               text: "This action cannot be undone",
                icon: "warning",
                showCancelButton: true,
                confirmButtonColor: "#d33",
                cancelButtonColor: "#3085d6",
-               confirmButtonText: "Vẫn xóa!",
-               cancelButtonText: "Hủy"
+               confirmButtonText: "Delete permanent!",
+               cancelButtonText: "Discard"
             }).then((result) => {
                   if (result.isConfirmed) {
                      const dataSubmit = {
@@ -375,8 +375,8 @@ if(buttonDeleteManyPermanent)
                         .then(dataFromController => {
                            if(dataFromController.code == 200) {
                               Swal.fire({
-                                 title: "Đã xóa!",
-                                 text: "Bạn đã xóa thành công",
+                                 title: "Deleted successfully!",
+                                 text: "Your file has been deleted.",
                                  icon: "success",
                               })
                                  .then(noName => window.location.reload())
@@ -1013,7 +1013,7 @@ if(tablePermissions)
                if(dataFromController.code == 200) {
                   // window.location.reload();
 
-                  // ----- Notification chi ben FE -----/
+                  // ----- Notification for only FE -----/
                   const notificationFESuccess = document.querySelector(".alert-success[show-notification-fe]");
 
                   if(notificationFESuccess)
@@ -1029,7 +1029,7 @@ if(tablePermissions)
 
                      fadeOutFE(notificationFESuccess, timeExpiredNotification);
                   }
-                  // ----- End notification chi ben FE -----/
+                  // ----- End notification for only FE -----/
                }
             })
       }

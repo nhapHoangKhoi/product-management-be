@@ -21,15 +21,15 @@ module.exports.index = async (request, response) =>
    }
    const filterStatusForFE = [
       {
-         label: "Tất cả",
+         label: "All",
          value: ""
       },
       {
-         label: "Hoạt động",
+         label: "Active",
          value: "active"
       },
       {
-         label: "Dừng hoạt động",
+         label: "Inactive",
          value: "inactive"
       }
    ];
@@ -51,7 +51,7 @@ module.exports.index = async (request, response) =>
       itemSortBy[sortKey] = sortValue; // title=desc, price=desc,...
    }
    else {
-      itemSortBy.position = "asc"; // mac dinh neu ko co yeu cau sort khac
+      itemSortBy.position = "asc"; // default if no other sort request
    }
    // ----- End sort ----- //
 
@@ -110,7 +110,7 @@ module.exports.index = async (request, response) =>
    response.render(
       "admin/pages/product-categories/index.pug", 
       {
-         pageTitle: "Danh mục sản phẩm",
+         pageTitle: "Product Categories",
          listOfCategories: listOfCategories,
          filterStatusForFE: filterStatusForFE,
          pagination: pagination
@@ -126,8 +126,8 @@ module.exports.changeStatus = async (request, response) =>
       try {
          const { idCategory, statusChange } = request.params; // { statusChange: '...', idProduct: '...' }
          
-         // cap nhat data trong database
-         // day la cua mongoose, ko lien quan gi toi phuong thuc GET, PATCH,...
+         // update data in the database
+         // mongoose, not related anything to GET, PATCH,...
          await ProductCategoryModel.updateOne(
             {
                _id: idCategory
@@ -138,7 +138,7 @@ module.exports.changeStatus = async (request, response) =>
             }
          );
       
-         request.flash("success", "Cập nhật trạng thái thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Update status successfully!"); // chi la dat ten key "success"
    
          response.json({
             code: 200
@@ -149,7 +149,7 @@ module.exports.changeStatus = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -181,7 +181,7 @@ module.exports.changeMulti = async (request, response) =>
                      updatedBy: response.locals.accountAdmin.id
                   }
                );
-               request.flash("success", "Cập nhật sản phẩm thành công!"); // chi la dat ten key "success"
+               request.flash("success", "Update successfully!"); // key named "success"
             }
             break;
 
@@ -196,7 +196,7 @@ module.exports.changeMulti = async (request, response) =>
                      deletedBy: response.locals.accountAdmin.id
                   }
                );
-               request.flash("success", "Xoá thành công!"); // chi la dat ten key "success"
+               request.flash("success", "Delete successfully!"); // key named "success"
             }
             break;
          
@@ -211,7 +211,7 @@ module.exports.changeMulti = async (request, response) =>
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -233,7 +233,7 @@ module.exports.softDeleteCategory= async (request, response) =>
             }
          );
       
-         request.flash("success", "Xoá sản phẩm thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Delete successfully!"); // key named "success"
       
          response.json(
             {
@@ -246,7 +246,7 @@ module.exports.softDeleteCategory= async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }   
 
@@ -278,7 +278,7 @@ module.exports.changePosition = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ---------------End []------------------ //
@@ -303,7 +303,7 @@ module.exports.getCreatePage = async (request, response) =>
    response.render(
       "admin/pages/product-categories/create.pug", 
       {
-         pageTitle: "Thêm mới danh mục sản phẩm",
+         pageTitle: "Create New Product Category",
          listOfCategories: hierarchyCategories
       }
    );
@@ -319,10 +319,10 @@ module.exports.createCategory = async (request, response) =>
          request.body.position = parseInt(request.body.position);
       }
       else {
-         // --- Cach 1 (ko su dung nua)
+         // --- Cach 1 (not use anymore)
          // const numberOfCategories = await ProductCategoryModel.countDocuments({});
          // request.body.position = numberOfCategories + 1;
-         // --- End cach 1 (ko su dung nua)
+         // --- End cach 1 (not use anymore)
 
          // --- Cach lam 2
          const productCategoryWithMaxPosition = await ProductCategoryModel
@@ -346,11 +346,11 @@ module.exports.createCategory = async (request, response) =>
       const newCategoryModel = new ProductCategoryModel(request.body);
       await newCategoryModel.save();
    
-      request.flash("success", "Thêm mới danh mục thành công!");
+      request.flash("success", "Create new product category successfully!");
       response.redirect(`/${systemConfigs.prefixAdmin}/product-categories`);
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ---------------End []------------------ //
@@ -381,12 +381,12 @@ module.exports.getEditPage = async (request, response) =>
       // ----- End hierarchy dropdown ----- //
    
       
-      if(hierarchyCategories) // check != null, vi co render ra giao dien nen them if else cho nay nua
+      if(hierarchyCategories) // check != null, because rendering out the interface, so add these if else
       {
          response.render(
             "admin/pages/product-categories/edit.pug", 
             {
-               pageTitle: "Chỉnh sửa danh mục sản phẩm",
+               pageTitle: "Edit Product Category",
                listOfCategories: hierarchyCategories,
                theCategoryData: theCategoryData
             }
@@ -398,9 +398,9 @@ module.exports.getEditPage = async (request, response) =>
       }
    }
    catch(error) {
-      // catch la do nguoi ta hack, pha
+      // catch: hack
       // console.log(error)
-      request.flash("error", "ID sản phẩm không hợp lệ!");
+      request.flash("error", "ID not valid!");
       response.redirect(`/${systemConfigs.prefixAdmin}/product-categories`);
    }
 }
@@ -434,17 +434,17 @@ module.exports.editCategory = async (request, response) =>
             request.body
          );
       
-         request.flash("success", "Cập nhật danh mục thành công!");
+         request.flash("success", "Update successfully!");
       }
       catch(error) {
-         request.flash("error", "ID sản phẩm không hợp lệ!");
+         request.flash("error", "ID not valid!");
       }
    
       // response.send("OK Frontend");
-      response.redirect("back"); // tuc la quay ve lai trang [GET] /admin/product-categories/edit
+      response.redirect("back"); // back to page [GET] /admin/product-categories/edit
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ---------------End []------------------ //
@@ -516,7 +516,7 @@ module.exports.recoverCategory= async (request, response) =>
             }
          );
       
-         request.flash("success", "Khôi phục thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover successfully!"); // chi la dat ten key "success"
       
          response.json(
             {
@@ -529,7 +529,7 @@ module.exports.recoverCategory= async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -550,7 +550,7 @@ module.exports.recoverManyCategories = async (request, response) =>
             }
          );
 
-         request.flash("success", "Khôi phục thành công!"); // chi la dat ten key "success"
+         request.flash("success", "Recover successfully!"); // chi la dat ten key "success"
 
          response.json(
             {
@@ -560,7 +560,7 @@ module.exports.recoverManyCategories = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -589,7 +589,7 @@ module.exports.permanentDeleteCategory = async (request, response) =>
       }
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 
@@ -615,7 +615,7 @@ module.exports.permanentDeleteManyCategories = async (request, response) =>
       );
    }
    else {
-      response.send("403"); // 403 nghia la ko co quyen
+      response.send("403"); // 403 forbidden, no permission
    }
 }
 // ---------------End []------------------ //

@@ -1,12 +1,12 @@
 extends ../../layouts/default.pug
 
 block main 
-   h1 Trang tổng quan
+   h1 Dashboard
 
    .row.mt-4 
       .col-12 
          .card.mb-4 
-            .card-header Thông tin tài khoản 
+            .card-header Account information
             .card-body 
                - if(accountAdmin.avatar)
                   img(
@@ -15,45 +15,45 @@ block main
                   )
                
                - if(accountAdmin.fullName)
-                  p Họ tên: <b>#{accountAdmin.fullName}</b>
+                  p Full name: <b>#{accountAdmin.fullName}</b>
 
                - if(accountAdmin.email)
                   p Email: <b>#{accountAdmin.email}</b>
 
                - if(accountAdmin.phone)
-                  p Số điện thoại: <b>#{accountAdmin.phone}</b>
+                  p Phone number: <b>#{accountAdmin.phone}</b>
 
                - if(correspondRole.title)
-                  p Phân quyền: <b>#{correspondRole.title}</b>
+                  p Role: <b>#{correspondRole.title}</b>
 
       .col-6
          .card.mb-4
-            .card-header Danh mục sản phẩm
+            .card-header Product Category
             .card-body
-               p Số lượng: <b>#{statistics.productCategory.total}</b>
-               p Hoạt động: <b>#{statistics.productCategory.active}</b>
-               p Dừng hoạt động: <b>#{statistics.productCategory.inactive}</b>
+               p Total: <b>#{statistics.productCategory.total}</b>
+               p Active: <b>#{statistics.productCategory.active}</b>
+               p Inactive: <b>#{statistics.productCategory.inactive}</b>
 
       .col-6
          .card.mb-4
-            .card-header Sản phẩm
+            .card-header Product
             .card-body
-               p Số lượng: <b>#{statistics.product.total}</b>
-               p Hoạt động: <b>#{statistics.product.active}</b>
-               p Dừng hoạt động: <b>#{statistics.product.inactive}</b>
+               p Total: <b>#{statistics.product.total}</b>
+               p Active: <b>#{statistics.product.active}</b>
+               p Inactive: <b>#{statistics.product.inactive}</b>
       
       .col-6
          .card.mb-4
-            .card-header Tài khoản admin
+            .card-header All admin accounts
             .card-body
-               p Số lượng: <b>#{statistics.accountAdmin.total}</b>
-               p Hoạt động: <b>#{statistics.accountAdmin.active}</b>
-               p Dừng hoạt động: <b>#{statistics.accountAdmin.inactive}</b>
+               p Total: <b>#{statistics.accountAdmin.total}</b>
+               p Active: <b>#{statistics.accountAdmin.active}</b>
+               p Inactive: <b>#{statistics.accountAdmin.inactive}</b>
       
       .col-6
          .card.mb-4
-            .card-header Tài khoản client
+            .card-header All client accounts
             .card-body
-               p Số lượng: <b>#{statistics.user.total}</b>
-               p Hoạt động: <b>#{statistics.user.active}</b>
-               p Dừng hoạt động: <b>#{statistics.user.inactive}</b>
+               p Total: <b>#{statistics.user.total}</b>
+               p Active: <b>#{statistics.user.active}</b>
+               p Inactive: <b>#{statistics.user.inactive}</b>

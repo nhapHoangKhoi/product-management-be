@@ -2,47 +2,47 @@
    .inner-menu 
       ul 
          li 
-            a(href=`/${prefixAdmin}/dashboard`) Tổng quan 
+            a(href=`/${prefixAdmin}/dashboard`) Dashboard
          
          
          - if(correspondRole.permissions.includes("products_view"))
             li 
-               a(href=`/${prefixAdmin}/products`) Danh sách sản phẩm
+               a(href=`/${prefixAdmin}/products`) Products list
          - else
             li
-               a(class="element-disabled") Danh sách sản phẩm
+               a(class="element-disabled") Products list
          
 
          - if(correspondRole.permissions.includes("product-categories_view"))
             li
-               a(href=`/${prefixAdmin}/product-categories`) Danh mục sản phẩm
+               a(href=`/${prefixAdmin}/product-categories`) Product categories list
          - else
             li
-               a(class="element-disabled") Danh mục sản phẩm
+               a(class="element-disabled") Product categories list
          
 
          - if(correspondRole.permissions.includes("roles_view"))
             li 
-               a(href=`/${prefixAdmin}/roles`) Nhóm quyền
+               a(href=`/${prefixAdmin}/roles`) Roles
          - else 
             li
-               a(class="element-disabled") Nhóm quyền
+               a(class="element-disabled") Roles
 
 
          - if(correspondRole.permissions.includes("roles_permissions"))
             li 
-               a(href=`/${prefixAdmin}/roles/permissions`) Phân quyền
+               a(href=`/${prefixAdmin}/roles/permissions`) Permissions
          - else 
             li
-               a(class="element-disabled") Phân quyền
+               a(class="element-disabled") Permissions
          
 
          - if(correspondRole.permissions.includes("accounts_view"))
             li 
-               a(href=`/${prefixAdmin}/accounts`) Tài khoản admin
+               a(href=`/${prefixAdmin}/accounts`) Admin accounts
          - else
             li
-               a(class="element-disabled") Tài khoản admin
+               a(class="element-disabled") Admin accounts
 
          li
-            a(href=`/${prefixAdmin}/settings/general`) Cài đặt chung
+            a(href=`/${prefixAdmin}/settings/general`) General settings

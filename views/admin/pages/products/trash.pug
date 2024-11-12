@@ -9,26 +9,26 @@ block main
       button(
          class="btn btn-secondary mb-3"
          onclick="history.back()"
-      ) Trở lại
+      ) Go back
 
       //- h1 Trang các sản phẩm đã xóa
 
-      h1 Sản phẩm đã xoá
+      h1 Recently Deleted
 
       .card.mb-3 
-      .card-header Danh sách
+      .card-header List
       .card-body
          button(
             class="btn btn-secondary btn-sm mb-3 element-hidden"
             button-recover-many=`/${prefixAdmin}/products/recover-many`
             value="recoverManyItems"
-         ) Khôi phục
+         ) Recover
          
          button(
             class="btn btn-secondary btn-sm mb-3 ml-3 element-hidden"
             button-delete-many-permanent=`/${prefixAdmin}/products/delete-many-permanent`
             value="deletePermanentManyItems"
-         ) Xoá vĩnh viễn
+         ) Delete permanently
 
          table.table.table-hover.table-sm
             thead
@@ -36,13 +36,13 @@ block main
                   th
                      label(for="checkALL-box")
                         input(name="checkAll" id="checkALL-box" type="checkbox")
-                  th(class="pl-0") STT
-                  th Hình ảnh
-                  th Tên sản phẩm
-                  th Giá
-                  th Trạng thái
-                  th Xoá bởi
-                  th Hành động
+                  th(class="pl-0") No.
+                  th Thumbnail
+                  th Product Name
+                  th Price
+                  th Status
+                  th Deleted by
+                  th Actions
             tbody
                each aProduct, index in listOfDeletedProducts
                   tr 
@@ -72,14 +72,14 @@ block main
                               class="badge badge-success" 
                               disabled 
                               button-change-status=""
-                           ) Hoạt động
+                           ) Active
                         else
                            button(
                               link=`/${prefixAdmin}/products/change-status/${aProduct.status}/${aProduct.id}` 
                               class="badge badge-danger"
                               disabled
                               button-change-status=""
-                           ) Dừng hoạt động 
+                           ) Inactive
                      td
                         div #{aProduct.deletedBy_FullName}
                         div #{aProduct.deletedAt_Format}
@@ -88,11 +88,11 @@ block main
                            button(
                               class="btn btn-primary btn-sm"
                               button-recover=`/${prefixAdmin}/products/recover/${aProduct.id}`
-                           ) Khôi phục
+                           ) Recover
                            button(
                               class="btn btn-danger btn-sm" 
                               button-delete-permanent=`/${prefixAdmin}/products/delete-permanent/${aProduct.id}`
-                           ) Xoá vĩnh viễn
+                           ) Delete permanently
 
 
       +pagination-bar(pagination)

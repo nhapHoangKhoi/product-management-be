@@ -28,9 +28,9 @@ mixin pagination-bar(pagination)
          //-------------Start paging----------------//
          - if (pagination.currentPage > 1)                     
             li(class="page-item")
-               button(class="page-link" button-pagination=1) Trang đầu
+               button(class="page-link" button-pagination=1) First page
             li(class="page-item")
-               button(class="page-link" button-pagination=pagination.currentPage-1) Trang trước
+               button(class="page-link" button-pagination=pagination.currentPage-1) Prev
 
 
          - if (startPage > 1)
@@ -52,8 +52,8 @@ mixin pagination-bar(pagination)
 
          - if (pagination.currentPage < pagination.totalPage)
             li(class="page-item")
-               button(class="page-link" button-pagination=pagination.currentPage+1) Kế tiếp
+               button(class="page-link" button-pagination=pagination.currentPage+1) Next
             li(class="page-item")
-               button(class="page-link" button-pagination=pagination.totalPage) Trang cuối
+               button(class="page-link" button-pagination=pagination.totalPage) Last page
                
          //-------------End paging----------------//
